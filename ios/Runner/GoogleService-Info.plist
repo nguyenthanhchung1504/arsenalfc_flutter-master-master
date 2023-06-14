@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>589941651652-4f4qp75176mj0l3i936jsvm6ba5uhjsn.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.589941651652-4f4qp75176mj0l3i936jsvm6ba5uhjsn</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>589941651652-9r1ul95q4bcuh10pij09p5eovfic34ea.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB6RJDfEnkD__Xq4w6clS39NyMtxuwJoto</string>
+	<key>GCM_SENDER_ID</key>
+	<string>589941651652</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.ntchung.arsenalafc</string>
+	<key>PROJECT_ID</key>
+	<string>afc-arsenal</string>
+	<key>STORAGE_BUCKET</key>
+	<string>afc-arsenal.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:589941651652:ios:8f8cd9a8d839247c323191</string>
+	<key>DATABASE_URL</key>
+	<string>https://afc-arsenal-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

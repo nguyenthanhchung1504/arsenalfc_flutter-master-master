@@ -1,0 +1,18 @@
+# This is a generated file; do not edit or check into version control.
+path_provider=/Applications/dev/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.11/
+path_provider_android=/Applications/dev/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.22/
+path_provider_ios=/Applications/dev/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_ios-2.0.11/
+path_provider_linux=/Applications/dev/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_linux-2.1.7/
+path_provider_macos=/Applications/dev/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-2.0.7/
+path_provider_windows=/Applications/dev/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.1.3/
+sqflite=/Applications/dev/flutter/.pub-cache/hosted/pub.dartlang.org/sqflite-2.2.3/
+video_player=/Applications/dev/flutter/.pub-cache/hosted/pub.dartlang.org/video_player-2.5.1/
+video_player_android=/Applications/dev/flutter/.pub-cache/hosted/pub.dartlang.org/video_player_android-2.3.10/
+video_player_avfoundation=/Applications/dev/flutter/.pub-cache/hosted/pub.dartlang.org/video_player_avfoundation-2.3.8/
+video_player_web=/Applications/dev/flutter/.pub-cache/hosted/pub.dartlang.org/video_player_web-2.0.13/
+wakelock=/Applications/dev/flutter/.pub-cache/hosted/pub.dartlang.org/wakelock-0.6.2/
+wakelock_macos=/Applications/dev/flutter/.pub-cache/hosted/pub.dartlang.org/wakelock_macos-0.4.0/
+wakelock_web=/Applications/dev/flutter/.pub-cache/hosted/pub.dartlang.org/wakelock_web-0.4.0/
+webview_flutter=/Applications/dev/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter-4.0.2/
+webview_flutter_android=/Applications/dev/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter_android-3.2.1/
+webview_flutter_wkwebview=/Applications/dev/flutter/.pub-cache/hosted/pub.dartlang.org/webview_flutter_wkwebview-3.0.2/

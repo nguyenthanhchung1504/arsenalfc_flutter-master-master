@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "589941651652",
+    "firebase_url": "https://afc-arsenal-default-rtdb.firebaseio.com",
+    "project_id": "afc-arsenal",
+    "storage_bucket": "afc-arsenal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589941651652:android:73cced8ca75023c4323191",
+        "android_client_info": {
+          "package_name": "com.ntchung.arsenalafc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589941651652-u00td6c5lk2n9p5pcp0pdns507mih08h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZ_AeJweJxjPmMLhW5add4MdrPnWO050E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589941651652-u00td6c5lk2n9p5pcp0pdns507mih08h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
