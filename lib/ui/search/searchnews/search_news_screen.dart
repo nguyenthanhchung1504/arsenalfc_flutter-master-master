@@ -1,3 +1,4 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:arsenalfc_flutter/ui/search/searchnews/search_news_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -40,11 +41,18 @@ class SearchNewsScreen extends GetView<SearchNewsController> {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(left: 16, right: 16, top: 12),
+                margin: const EdgeInsets.only(left: 16, right: 16, top: 12),
                 child: TextField(
                   onChanged: (value) {
+                    print("onChanged  ${value.isEmpty ? true : false}");
                     controller.search = value;
-                    controller.getNewsPaging(false);
+                    controller.list.clear();
+                    if(value.isEmpty || value == ""){
+                      controller.list.clear();
+                      controller.update();
+                    }else{
+                      controller.getNewsPaging(false);
+                    }
                   },
                   decoration: const InputDecoration(
                       hintText: "Tìm kiếm",
@@ -72,6 +80,21 @@ class SearchNewsScreen extends GetView<SearchNewsController> {
             ],
           ),
         ),
+        bottomNavigationBar: AdmobBanner(
+          adUnitId: StringUtils.getBannerAdUnitId(),
+          adSize: AdmobBannerSize.BANNER,
+          listener: (AdmobAdEvent event,
+              Map<String, dynamic>? args) {
+
+          },
+          onBannerCreated:
+              (AdmobBannerController controller) {
+            // Dispose is called automatically for you when Flutter removes the banner from the widget tree.
+            // Normally you don't need to worry about disposing this yourself, it's handled.
+            // If you need direct access to dispose, this is your guy!
+            // controller.dispose();
+          },
+        ),
       ),
     );
   }
@@ -87,6 +110,7 @@ class NewListSearch extends GetView<SearchNewsController> {
     return Obx(() =>
     controller.list.isNotEmpty ?
     ListView.builder(
+        controller: controller.scrollController,
         shrinkWrap: true,
         primary: false,
         itemCount: controller.list.length,
@@ -180,7 +204,25 @@ class NewListSearch extends GetView<SearchNewsController> {
                 )),
           );
         }) :
-    Container());
+    Container(
+      alignment: Alignment.center,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset("assets/images/ic_no_data.png",width: 99,height: 116,),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 36,vertical: 12),
+            child: Text(
+              "Chưa có dữ liệu tìm kiếm. Mời bạn nhập từ khoá để tìm kiếm.",
+              style: TextStyle(fontSize: 12, color: Colors.grey,fontFamily: "montserrat_black",fontWeight: FontWeight.w700),
+              textAlign: TextAlign.center,
+
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 
 }

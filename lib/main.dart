@@ -11,12 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:notification_permissions/notification_permissions.dart';
 import 'firebase_options.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   print('Handling a background message ${message.messageId}');
   print(message.data);
+  print("Vừa có một bài viết mới: ${message.data['title'].toString()}");
   flutterLocalNotificationsPlugin.show(
       message.data.hashCode,
       message.data['title'],
@@ -45,7 +47,29 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await FirebaseMessaging.instance.subscribeToTopic(KeyString.KEY_NEWS);
+  PermissionStatus status = await NotificationPermissions.getNotificationPermissionStatus();
+  if(status == PermissionStatus.denied && Platform.isAndroid){
+    NotificationPermissions.requestNotificationPermissions(
+        iosSettings: const NotificationSettingsIos(
+            sound: true, badge: true, alert: true))
+        .then((_) {
+      // when finished, check the permission status
+
+    });
+  }
+
+  if(Platform.isIOS){
+    NotificationPermissions.requestNotificationPermissions(
+        iosSettings: const NotificationSettingsIos(
+            sound: true, badge: true, alert: true))
+        .then((_) {
+      // when finished, check the permission status
+
+    });
+  }
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
       AndroidFlutterLocalNotificationsPlugin>()

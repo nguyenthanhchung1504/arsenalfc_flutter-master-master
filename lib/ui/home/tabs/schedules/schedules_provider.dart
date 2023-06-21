@@ -10,12 +10,12 @@ class ScheduleProvider extends GetConnect{
   };
 
   var queryParam = {
-    "season" : "2022",
+    "season" : "2023",
     "team" : "42"
   };
 
   var queryRanking = {
-    "season" : "2022",
+    "season" : "2023",
     "league" : "39"
   };
 

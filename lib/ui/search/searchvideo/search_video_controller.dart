@@ -30,6 +30,7 @@ class SearchVideoController extends GetxController{
         getVideoPaging(true);
       }
     });
+    FocusScope.of(Get.context!).requestFocus(FocusNode());
   }
 
   void getVideoPaging(bool isScroll) async {

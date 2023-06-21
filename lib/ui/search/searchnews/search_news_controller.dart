@@ -28,10 +28,11 @@ class SearchNewsController extends GetxController{
         pageIndex = pageIndex++;
         getNewsPaging(true);
       }
+      FocusScope.of(Get.context!).requestFocus(FocusNode());
     });
   }
 
-  void getNewsPaging(bool isScroll) async {
+  void getNewsPaging(bool isScroll)  {
     var body = {"PageIndex": "$pageIndex", "PageSize": "20", "SearchValue": search};
     if(search.isEmpty){
       list.clear();
@@ -45,21 +46,11 @@ class SearchNewsController extends GetxController{
       pageIndex = 1.obs;
     }
     var index = 0;
-    await providers.getNews(body).then((result) {
+    providers.getNews(body).then((result) {
       if (result.body?.resultCode == 1) {
         result.body?.data?.forEach((element) {
-          if (index != 0) {
-            list.add(element);
-          } else {
-            if (pageIndex != 1.obs) {
-              list.add(element);
-            } else {
-              data.value = element;
-            }
-          }
+          list.add(element);
           index++;
-
-
         }
         );
         update();

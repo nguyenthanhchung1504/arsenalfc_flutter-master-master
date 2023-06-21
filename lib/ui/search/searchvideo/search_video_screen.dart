@@ -1,4 +1,4 @@
-import 'package:arsenalfc_flutter/ui/search/searchnews/search_news_controller.dart';
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:arsenalfc_flutter/ui/search/searchvideo/search_video_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -41,15 +41,17 @@ class SearchVideoScreen extends GetView<SearchVideoController> {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(left: 16, right: 16, top: 12),
+                margin: const EdgeInsets.only(left: 16, right: 16, top: 12),
                 child: TextField(
                   onChanged: (value) {
+                    print("onChanged  $value");
                     controller.search = value;
                     controller.list.clear();
-                    if(value.isEmpty){
+                    if(value.isEmpty || value == ""){
                       controller.update();
+                    }else{
+                      controller.getVideoPaging(false);
                     }
-                    controller.getVideoPaging(false);
                   },
                   decoration: const InputDecoration(
                       hintText: "Tìm kiếm",
@@ -77,6 +79,21 @@ class SearchVideoScreen extends GetView<SearchVideoController> {
             ],
           ),
         ),
+        bottomNavigationBar: AdmobBanner(
+          adUnitId: StringUtils.getBannerAdUnitId(),
+          adSize: AdmobBannerSize.BANNER,
+          listener: (AdmobAdEvent event,
+              Map<String, dynamic>? args) {
+
+          },
+          onBannerCreated:
+              (AdmobBannerController controller) {
+            // Dispose is called automatically for you when Flutter removes the banner from the widget tree.
+            // Normally you don't need to worry about disposing this yourself, it's handled.
+            // If you need direct access to dispose, this is your guy!
+            // controller.dispose();
+          },
+        ),
       ),
     );
   }
@@ -92,6 +109,7 @@ class VideoListSearch extends GetView<SearchVideoController> {
     return Obx(() =>
     controller.list.isNotEmpty ?
     ListView.builder(
+      controller: controller.scrollController,
         shrinkWrap: true,
         primary: false,
         itemCount: controller.list.length,
@@ -185,7 +203,25 @@ class VideoListSearch extends GetView<SearchVideoController> {
                 )),
           );
         }) :
-    Container());
+    Container(
+      alignment: Alignment.center,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset("assets/images/ic_no_data.png",width: 99,height: 116,),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 36,vertical: 12),
+            child: Text(
+              "Chưa có dữ liệu tìm kiếm. Mời bạn nhập từ khoá để tìm kiếm.",
+              style: TextStyle(fontSize: 12, color: Colors.grey,fontFamily: "montserrat_black",fontWeight: FontWeight.w700),
+              textAlign: TextAlign.center,
+
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 
 }

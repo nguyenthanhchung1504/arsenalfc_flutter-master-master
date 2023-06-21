@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:arsenalfc_flutter/extension/extension.dart';
 import 'package:arsenalfc_flutter/ui/home/tabs/news/news_screen.dart';
 import 'package:arsenalfc_flutter/ui/home/tabs/players/players_screen.dart';
@@ -24,18 +26,22 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    var initialzationSettingsAndroid = const AndroidInitializationSettings('@mipmap/ic_launcher');
-    var initializationSettings =
-    InitializationSettings(android: initialzationSettingsAndroid);
+    if(Platform.isAndroid) {
+      var initialzationSettingsAndroid = const AndroidInitializationSettings(
+          '@mipmap/ic_launcher');
+      var initializationSettings = InitializationSettings(
+          android: initialzationSettingsAndroid);
+      flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    }
 
-    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       if (notification != null && android != null) {
         flutterLocalNotificationsPlugin.show(
             notification.hashCode,
-            notification.title,
+            notification.title?.contains("bài viết") == true ? "Tin mới" : "Video mới",
             notification.body,
             NotificationDetails(
               android: AndroidNotificationDetails(
