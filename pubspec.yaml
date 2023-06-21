@@ -38,7 +38,7 @@ dependencies:
   collection: any
   webview_flutter: ^4.0.1
   pod_player: any
-  admob_flutter: ^3.0.0
+#  admob_flutter: ^3.0.0
 #  firebase_messaging: ^14.2.5
 #  firebase_core: ^2.7.0
 #  firebase_analytics: ^10.1.4
@@ -51,6 +51,7 @@ dependencies:
   firebase_core: ^2.8.0
   flutter_local_notifications: ^8.2.0
   notification_permissions: ^0.6.1
+  google_mobile_ads: ^3.0.0
 
 #  firebase_analytics: ^10.2.0
 

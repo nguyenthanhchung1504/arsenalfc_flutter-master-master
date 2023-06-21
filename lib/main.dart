@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:admob_flutter/admob_flutter.dart';
 import 'package:arsenalfc_flutter/routes/routes.dart';
 import 'package:arsenalfc_flutter/routes/routes_const.dart';
 import 'package:arsenalfc_flutter/ui/home/home_screen.dart';
@@ -11,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:notification_permissions/notification_permissions.dart';
 import 'firebase_options.dart';
 
@@ -74,13 +74,7 @@ void main() async {
       .resolvePlatformSpecificImplementation<
       AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
-
-
-  Admob.initialize();
-  if(Platform.isIOS){
-    // Run this before displaying any ad.
-    await Admob.requestTrackingAuthorization();
-  }
+  MobileAds.instance.initialize();
   runApp(GetMaterialApp(
     translations: Messages(),
     locale: const Locale('vi', 'VI'),

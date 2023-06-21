@@ -1,10 +1,11 @@
-import 'package:admob_flutter/admob_flutter.dart';
+
 import 'package:arsenalfc_flutter/extension/extension.dart';
 import 'package:arsenalfc_flutter/utils/colors.dart';
 import 'package:arsenalfc_flutter/utils/messages.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:pod_player/pod_player.dart';
 
@@ -190,21 +191,32 @@ class DetailVideoScreen extends GetView<DetailVideoController> {
                       }))
             ],
           )),
-      bottomNavigationBar: AdmobBanner(
-        adUnitId: StringUtils.getBannerAdUnitId(),
-        adSize: AdmobBannerSize.BANNER,
-        listener: (AdmobAdEvent event,
-            Map<String, dynamic>? args) {
+        bottomNavigationBar: SizedBox(
+          width: AdSize.banner.width.toDouble(),
+          height: AdSize.banner.height.toDouble(),
+          child: AdWidget(ad: BannerAd(
+            adUnitId: StringUtils.getBannerAdUnitId(),
+            request: const AdRequest(),
+            size: AdSize.banner,
+            listener: BannerAdListener(
+              // Called when an ad is successfully received.
+              onAdLoaded: (ad) {
 
-        },
-        onBannerCreated:
-            (AdmobBannerController controller) {
-          // Dispose is called automatically for you when Flutter removes the banner from the widget tree.
-          // Normally you don't need to worry about disposing this yourself, it's handled.
-          // If you need direct access to dispose, this is your guy!
-          // controller.dispose();
-        },
-      ),
+              },
+              // Called when an ad request failed.
+              onAdFailedToLoad: (ad, err) {
+                // Dispose the ad here to free resources.
+                ad.dispose();
+              },
+              // Called when an ad opens an overlay that covers the screen.
+              onAdOpened: (Ad ad) {},
+              // Called when an ad removes an overlay that covers the screen.
+              onAdClosed: (Ad ad) {},
+              // Called when an impression occurs on the ad.
+              onAdImpression: (Ad ad) {},
+            ),
+          )..load()),
+        )
     );
   }
 }

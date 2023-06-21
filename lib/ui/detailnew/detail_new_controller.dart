@@ -1,6 +1,4 @@
-import 'dart:io';
 
-// import 'package:admob_flutter/admob_flutter.dart';
 import 'package:collection/collection.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -15,6 +13,7 @@ class DetailController extends GetxController {
   final DetailProvider provider;
 
 
+
   DetailController({required this.provider});
 
   RxList<Data> listArgument = RxList();
@@ -22,6 +21,7 @@ class DetailController extends GetxController {
 
 
   late WebViewController webViewController;
+
 
   @override
   void onInit() {
