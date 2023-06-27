@@ -3,6 +3,8 @@ import 'package:arsenalfc_flutter/ui/search/searchnews/search_news_binding.dart'
 import 'package:arsenalfc_flutter/ui/search/searchnews/search_news_screen.dart';
 import 'package:arsenalfc_flutter/ui/search/searchvideo/search_video_binding.dart';
 import 'package:arsenalfc_flutter/ui/search/searchvideo/search_video_screen.dart';
+import 'package:arsenalfc_flutter/ui/signin/sign_in_binding.dart';
+import 'package:arsenalfc_flutter/ui/signin/sign_in_screen.dart';
 import 'package:get/get.dart';
 
 import '../main.dart';
@@ -24,6 +26,7 @@ import '../ui/home/tabs/videos/videos_binding.dart';
 import '../ui/home/tabs/videos/videos_screen.dart';
 
 routes() => [
+  GetPage(name: AppConst.SIGN_IN, page: () => SignInScreen(),binding: SignInBinding()),
   GetPage(name: AppConst.MAIN, page: () => const MainScreen(),bindings: [NewsBinding(),VideosBinding(),SchedulesBinding(),PlayerBindings()]),
   GetPage(name: AppConst.HOME, page: () => HomeScreen()),
   GetPage(name: AppConst.NEWS, page: () => NewsScreen(),binding: NewsBinding()),

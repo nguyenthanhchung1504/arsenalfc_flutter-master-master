@@ -11,4 +11,5 @@ class AppConst{
   static const DETAIL_PLAYER = "/detailplayer";
   static const SEARCH_NEW = "/search_news";
   static const SEARCH_VIDEO = "/search_video";
+  static const SIGN_IN = "/sign_in";
 }
