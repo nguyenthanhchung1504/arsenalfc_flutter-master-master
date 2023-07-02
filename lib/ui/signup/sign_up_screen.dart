@@ -1,14 +1,14 @@
-import 'package:arsenalfc_flutter/ui/signin/sign_in_controller.dart';
-import 'package:arsenalfc_flutter/utils/colors.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:arsenalfc_flutter/ui/signup/sign_up_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import '../../routes/routes_const.dart';
+import '../../utils/colors.dart';
 
-class SignInScreen extends GetView<SignInController> {
-  const SignInScreen({Key? key}) : super(key: key);
+class SignUpScreen extends GetView<SignUpController>{
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +23,6 @@ class SignInScreen extends GetView<SignInController> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [
-                        Color(0xFFD7291D),
-                        Color(0xFFAA2218),
-
-                    ]
-                ),
                 image: DecorationImage(
                     image: AssetImage("assets/images/bg_background_sign_in.png"),
                     fit: BoxFit.fill,
@@ -44,7 +37,7 @@ class SignInScreen extends GetView<SignInController> {
                     child: Image.asset(
                       "assets/images/ic_logo_sign_in.png",
                       width: 140,
-                      height: 140,color: Colors.white,
+                      height: 140,color:  Color(AppColors.RED),
                     ),
                   ),
 
@@ -53,8 +46,8 @@ class SignInScreen extends GetView<SignInController> {
                     padding: const EdgeInsets.symmetric(horizontal: 55),
                     child: Text(
                       "Official Arsenal Fan Club in Vietnam".toUpperCase(),
-                      style: const TextStyle(
-                          color: Colors.white,
+                      style:  const TextStyle(
+                          color:  Color(AppColors.RED),
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
                           fontFamily: "montserrat_black"),
@@ -67,9 +60,9 @@ class SignInScreen extends GetView<SignInController> {
                     padding: EdgeInsets.only(left: 16,right: 16,top: 16,bottom: 20),
                     child: Center(
                       child: Text(
-                        "Chào mừng bạn quay trở lại !,",
+                        "Tham gia ngay cùng các Gooners",
                         style: TextStyle(
-                            color: Colors.white,
+                            color: Color(AppColors.RED),
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                             fontFamily: "montserrat_black"),
@@ -80,34 +73,86 @@ class SignInScreen extends GetView<SignInController> {
 
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: TextField(
-                      controller: controller.textUser,
-                      keyboardType: TextInputType.emailAddress,
+                    child:  TextField(
+                      controller: controller.fullName,
+                      textCapitalization: TextCapitalization.words,
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: "Email",
+                          hintText: "Họ và tên",
                           contentPadding:
-                              EdgeInsets.symmetric(vertical: 0, horizontal: 12),
+                          EdgeInsets.symmetric(vertical: 0, horizontal: 12),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                            borderSide: BorderSide(color: Colors.white,width: 2.0),
+                            borderSide: BorderSide(color: Colors.grey,width: 1.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                            borderSide: BorderSide(color: Colors.white,width: 2.0),
+                            borderSide: BorderSide(color: Colors.grey,width: 1.0),
                           ),
                           disabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                            borderSide: BorderSide(color: Colors.white,width: 2.0),
+                            borderSide: BorderSide(color: Colors.grey,width: 1.0),
+                          ),
+                          hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(right: 16,left: 16,top: 16),
+                    child: TextField(
+                      controller: controller.email,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: const InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: "Email",
+                          contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 12),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            borderSide: BorderSide(color: Colors.grey,width: 1.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                             borderSide: BorderSide(color: Colors.grey,width: 1.0),
+                          ),
+                          disabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                             borderSide: BorderSide(color: Colors.grey,width: 1.0),
+                          ),
+                          hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(right: 16,left: 16,top: 16),
+                    child: TextField(
+                      controller: controller.phone,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.phone,
+                      decoration: const InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: "Số điện thoại",
+                          contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 12),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            borderSide: BorderSide(color: Colors.grey,width: 1.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            borderSide: BorderSide(color: Colors.grey,width: 1.0),
+                          ),
+                          disabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            borderSide: BorderSide(color: Colors.grey,width: 1.0),
                           ),
                           hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
                     ),
                   ),
                   Container(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                     child: TextField(
                       controller: controller.textPassword,
                       textInputAction: TextInputAction.done,
@@ -119,7 +164,7 @@ class SignInScreen extends GetView<SignInController> {
                           fillColor: Colors.white,
                           hintText: "Password",
                           contentPadding:
-                              EdgeInsets.symmetric(vertical: 0, horizontal: 12),
+                          EdgeInsets.symmetric(vertical: 0, horizontal: 12),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(8.0))),
                           focusedBorder: OutlineInputBorder(
@@ -130,30 +175,12 @@ class SignInScreen extends GetView<SignInController> {
                           hintStyle: TextStyle(color: Colors.grey, fontSize: 14)),
                     ),
                   ),
-                  GestureDetector(
-                    child:  Container(
-                      padding: const EdgeInsets.only(right: 16,bottom: 12),
-                      child: const Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          "Bạn quên mật khẩu?",
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: "montserrat_black",
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  ),
 
 
                   GestureDetector(
                     onTap: (){
-                      controller.actionLogin();
                       FocusScope.of(context).unfocus();
+                      controller.actionRegister();
                     },
                     child: Container(
                         alignment: Alignment.center,
@@ -162,14 +189,14 @@ class SignInScreen extends GetView<SignInController> {
                         height: 48,
                         decoration: const BoxDecoration(
                           gradient:
-                              LinearGradient(colors: [Colors.white, Colors.grey]),
+                          LinearGradient(colors: [Color(AppColors.RED), Colors.black]),
                           borderRadius: BorderRadius.all(Radius.circular(8.0)),
                         ),
                         child: const Text(
-                          "Đăng nhập",
+                          "Đăng ký",
                           style: TextStyle(
                               fontSize: 14,
-                              color: Color(AppColors.RED),
+                              color: Colors.white,
                               fontFamily: "montserrat_black",
                               fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
@@ -182,24 +209,24 @@ class SignInScreen extends GetView<SignInController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Bạn chưa có tài khoản ? ",
+                          "Bạn đã có tài khoản đăng nhập rồi?",
                           style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.white70,
+                            fontSize: 13,
+                            color: Colors.black,
                             fontFamily: "montserrat_black",
                           ),
                           textAlign: TextAlign.center,
                         ),
                         GestureDetector(
                           onTap: (){
-                            Get.toNamed(AppConst.SIGN_UP);
+                            Get.back();
                           },
                           child: const Text(
-                            " Đăng ký ngay",
+                            " Đăng nhập",
                             style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w400,
+                              fontSize: 13,
+                              color: Color(AppColors.RED),
+                              fontWeight: FontWeight.bold,
                               fontFamily: "montserrat_black",
                             ),
                             textAlign: TextAlign.center,
@@ -214,6 +241,8 @@ class SignInScreen extends GetView<SignInController> {
           ),
         ),
       ),
+      builder: EasyLoading.init(),
     );
   }
+
 }

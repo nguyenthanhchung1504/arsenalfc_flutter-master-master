@@ -5,6 +5,7 @@ import 'package:arsenalfc_flutter/ui/search/searchvideo/search_video_binding.dar
 import 'package:arsenalfc_flutter/ui/search/searchvideo/search_video_screen.dart';
 import 'package:arsenalfc_flutter/ui/signin/sign_in_binding.dart';
 import 'package:arsenalfc_flutter/ui/signin/sign_in_screen.dart';
+import 'package:arsenalfc_flutter/ui/signup/sign_up_screen.dart';
 import 'package:get/get.dart';
 
 import '../main.dart';
@@ -24,11 +25,13 @@ import '../ui/home/tabs/schedules/schedules_binding.dart';
 import '../ui/home/tabs/schedules/schedules_screen.dart';
 import '../ui/home/tabs/videos/videos_binding.dart';
 import '../ui/home/tabs/videos/videos_screen.dart';
+import '../ui/signup/sign_up_binding.dart';
 
 routes() => [
-  GetPage(name: AppConst.SIGN_IN, page: () => const SignInScreen(),binding: SignInBinding()),
+  GetPage(name: AppConst.SIGN_IN, page: () => const SignInScreen(),binding: SignInBinding(),transition: Transition.rightToLeftWithFade,transitionDuration: const Duration(milliseconds: 500)),
+  GetPage(name: AppConst.SIGN_UP, page: () => const SignUpScreen(),binding: SignUpBinding(),transition: Transition.rightToLeftWithFade,transitionDuration: const Duration(milliseconds: 500)),
   GetPage(name: AppConst.MAIN, page: () => const MainScreen(),bindings: [NewsBinding(),VideosBinding(),SchedulesBinding(),PlayerBindings(),SignInBinding()]),
-  GetPage(name: AppConst.HOME, page: () => HomeScreen()),
+  GetPage(name: AppConst.HOME, page: () => HomeScreen(),bindings: [NewsBinding(),VideosBinding(),SchedulesBinding(),PlayerBindings()]),
   GetPage(name: AppConst.NEWS, page: () => NewsScreen(),binding: NewsBinding()),
   GetPage(name: AppConst.VIDEOS, page: () => const VideosScreen(),binding: VideosBinding()),
   GetPage(name: AppConst.SCHEDULES, page: () => const SchedulesScreen(),binding: SchedulesBinding()),

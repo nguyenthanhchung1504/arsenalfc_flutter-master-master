@@ -12,4 +12,12 @@ class AppConst{
   static const SEARCH_NEW = "/search_news";
   static const SEARCH_VIDEO = "/search_video";
   static const SIGN_IN = "/sign_in";
+  static const SIGN_UP = "/sign_up";
+
+
+  /// KEY CACHE ////
+  static const KEY_EMAIL = "KEY_EMAIL";
+  static const KEY_FULLNAME = "KEY_FULLNAME";
+  static const KEY_PHONE = "KEY_PHONE";
+  static const KEY_PASSWORD = "KEY_PASSWORD";
 }

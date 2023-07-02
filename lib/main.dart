@@ -65,6 +65,33 @@ void main() async {
         return true;
       };
     }
+
+    if(Platform.isAndroid) {
+      await FirebaseMessaging.instance.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
+    }else{
+      NotificationPermissions.requestNotificationPermissions(
+          iosSettings: const NotificationSettingsIos(
+              sound: true, badge: true, alert: true))
+          .then((_) {
+        // when finished, check the permission status
+      });
+    }
+
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+    MobileAds.instance.initialize();
   }
   // PermissionStatus status =
   //     await NotificationPermissions.getNotificationPermissionStatus();
@@ -76,32 +103,7 @@ void main() async {
   //   // when finished, check the permission status
   // });
 
-  if(Platform.isAndroid) {
-    await FirebaseMessaging.instance.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-  }else{
-    NotificationPermissions.requestNotificationPermissions(
-        iosSettings: const NotificationSettingsIos(
-            sound: true, badge: true, alert: true))
-        .then((_) {
-      // when finished, check the permission status
-    });
-  }
 
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-  await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-      AndroidFlutterLocalNotificationsPlugin>()
-      ?.createNotificationChannel(channel);
-  MobileAds.instance.initialize();
   runApp(GetMaterialApp(
     translations: Messages(),
     locale: const Locale('vi', 'VI'),
@@ -119,12 +121,12 @@ class MainScreen extends StatelessWidget {
     return FutureBuilder(
       future: Future.delayed(const Duration(seconds: 3)),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return SplashScreen();
-        } else {
-          return HomeScreen();
-        }
-        // return const SignInScreen();
+        // if (snapshot.connectionState == ConnectionState.waiting) {
+        //   return SplashScreen();
+        // } else {
+        //   return HomeScreen();
+        // }
+        return const SignInScreen();
       },
     );
   }
