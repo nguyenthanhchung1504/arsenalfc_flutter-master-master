@@ -9,6 +9,7 @@ import 'package:arsenalfc_flutter/ui/splash/splash_screen.dart';
 import 'package:arsenalfc_flutter/utils/messages.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -53,16 +54,17 @@ void main() async {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
     await FirebaseMessaging.instance.subscribeToTopic(KeyString.KEY_NEWS);
-
-    FlutterError.onError = (errorDetails) {
-      // If you wish to record a "non-fatal" exception, please use `FirebaseCrashlytics.instance.recordFlutterError` instead
-      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-    };
-    PlatformDispatcher.instance.onError = (error, stack) {
-      // If you wish to record a "non-fatal" exception, please remove the "fatal" parameter
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-      return true;
-    };
+    if(kReleaseMode) {
+      FlutterError.onError = (errorDetails) {
+        // If you wish to record a "non-fatal" exception, please use `FirebaseCrashlytics.instance.recordFlutterError` instead
+        FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+      };
+      PlatformDispatcher.instance.onError = (error, stack) {
+        // If you wish to record a "non-fatal" exception, please remove the "fatal" parameter
+        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+        return true;
+      };
+    }
   }
   // PermissionStatus status =
   //     await NotificationPermissions.getNotificationPermissionStatus();
@@ -117,12 +119,12 @@ class MainScreen extends StatelessWidget {
     return FutureBuilder(
       future: Future.delayed(const Duration(seconds: 3)),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        // if (snapshot.connectionState == ConnectionState.waiting) {
-        //   return SplashScreen();
-        // } else {
-        //   return SignInScreen();
-        // }
-        return const SignInScreen();
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SplashScreen();
+        } else {
+          return HomeScreen();
+        }
+        // return const SignInScreen();
       },
     );
   }

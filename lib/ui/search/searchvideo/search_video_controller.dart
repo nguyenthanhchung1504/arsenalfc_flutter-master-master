@@ -1,24 +1,24 @@
 
+import 'package:arsenalfc_flutter/model/videos/video_response.dart';
 import 'package:arsenalfc_flutter/ui/search/searchvideo/search_video_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../model/news/data_news.dart';
+import '../../../api/Api.dart';
+import '../../../model/videos/data_videos.dart';
 
 class SearchVideoController extends GetxController{
   final SearchVideoProviders providers;
 
   SearchVideoController({required this.providers});
 
-  RxList<Data> list = <Data>[].obs;
+  RxList<DataVideo> list = <DataVideo>[].obs;
   RxInt pageIndex = 1.obs;
-
-  Rx<Data> data = Data().obs;
 
   ScrollController scrollController = ScrollController();
 
   String search = "";
 
+  RxBool isLoadMore = true.obs;
 
   @override
   void onInit() {
@@ -26,15 +26,15 @@ class SearchVideoController extends GetxController{
     scrollController.addListener(() {
       if (scrollController.position.maxScrollExtent ==
           scrollController.position.pixels) {
-        pageIndex = pageIndex++;
-        getVideoPaging(true);
+        if(isLoadMore.value) {
+          getVideoPaging(true);
+        }
       }
     });
     FocusScope.of(Get.context!).requestFocus(FocusNode());
   }
 
   void getVideoPaging(bool isScroll) async {
-    var body = {"PageIndex": "$pageIndex", "PageSize": "20", "SearchValue": search};
     if(search.isEmpty){
       list.clear();
       pageIndex = 1.obs;
@@ -46,14 +46,19 @@ class SearchVideoController extends GetxController{
       list.clear();
       pageIndex = 1.obs;
     }
-    var index = 0;
-    await providers.getVideos(body).then((result) {
-      if (result.body?.resultCode == 1) {
-        result.body?.data?.forEach((element) {
-          list.add(element);
-        });
-        update();
-      } else {}
-    });
+    VideoResponse? videoResponse = await providers.getVideos(pageIndex.value,search);
+
+    if (videoResponse?.resultCode == 1) {
+      videoResponse?.data?.forEach((element) {
+        list.add(element);
+
+      });
+      update();
+    } else {}
+    if((videoResponse?.data?.length ?? 0) >= Api.PAGE_SIZE){
+      pageIndex++;
+    }else{
+      isLoadMore.value = false;
+    }
   }
 }

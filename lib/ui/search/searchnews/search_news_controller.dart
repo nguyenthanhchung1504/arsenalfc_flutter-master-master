@@ -1,3 +1,5 @@
+import 'package:arsenalfc_flutter/api/Api.dart';
+import 'package:arsenalfc_flutter/model/news/news_response.dart';
 import 'package:arsenalfc_flutter/ui/search/searchnews/search_news_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,7 +19,7 @@ class SearchNewsController extends GetxController{
   ScrollController scrollController = ScrollController();
 
   String search = "";
-
+  RxBool isLoadMore = true.obs;
 
   @override
   void onInit() {
@@ -25,15 +27,15 @@ class SearchNewsController extends GetxController{
     scrollController.addListener(() {
       if (scrollController.position.maxScrollExtent ==
           scrollController.position.pixels) {
-        pageIndex = pageIndex++;
-        getNewsPaging(true);
+        if(isLoadMore.value) {
+          getNewsPaging(true);
+        }
       }
       FocusScope.of(Get.context!).requestFocus(FocusNode());
     });
   }
 
-  void getNewsPaging(bool isScroll)  {
-    var body = {"PageIndex": "$pageIndex", "PageSize": "20", "SearchValue": search};
+  void getNewsPaging(bool isScroll) async{
     if(search.isEmpty){
       list.clear();
       pageIndex = 1.obs;
@@ -45,16 +47,20 @@ class SearchNewsController extends GetxController{
       list.clear();
       pageIndex = 1.obs;
     }
-    var index = 0;
-    providers.getNews(body).then((result) {
-      if (result.body?.resultCode == 1) {
-        result.body?.data?.forEach((element) {
-          list.add(element);
-          index++;
-        }
-        );
-        update();
-      } else {}
-    });
+    NewsResponse? newsResponse = await providers.getNews(pageIndex.value,search);
+
+    if (newsResponse?.resultCode == 1) {
+      newsResponse?.data?.forEach((element) {
+        list.add(element);
+      }
+      );
+      update();
+    } else {}
+
+    if((newsResponse?.data?.length ?? 0) >= Api.PAGE_SIZE){
+      pageIndex++;
+    }else{
+      isLoadMore.value = false;
+    }
   }
 }

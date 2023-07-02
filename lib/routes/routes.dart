@@ -26,8 +26,8 @@ import '../ui/home/tabs/videos/videos_binding.dart';
 import '../ui/home/tabs/videos/videos_screen.dart';
 
 routes() => [
-  GetPage(name: AppConst.SIGN_IN, page: () => SignInScreen(),binding: SignInBinding()),
-  GetPage(name: AppConst.MAIN, page: () => const MainScreen(),bindings: [NewsBinding(),VideosBinding(),SchedulesBinding(),PlayerBindings()]),
+  GetPage(name: AppConst.SIGN_IN, page: () => const SignInScreen(),binding: SignInBinding()),
+  GetPage(name: AppConst.MAIN, page: () => const MainScreen(),bindings: [NewsBinding(),VideosBinding(),SchedulesBinding(),PlayerBindings(),SignInBinding()]),
   GetPage(name: AppConst.HOME, page: () => HomeScreen()),
   GetPage(name: AppConst.NEWS, page: () => NewsScreen(),binding: NewsBinding()),
   GetPage(name: AppConst.VIDEOS, page: () => const VideosScreen(),binding: VideosBinding()),

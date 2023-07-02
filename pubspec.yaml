@@ -54,6 +54,10 @@ dependencies:
   google_mobile_ads: ^3.0.0
   internet_connection_checker: ^1.0.0+1
   firebase_crashlytics: ^3.3.3
+  fluttertoast: ^8.2.2
+  dio: ^5.2.1+1
+
+
 
 #  firebase_analytics: ^10.2.0
 

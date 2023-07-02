@@ -1,11 +1,26 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
-import '../../../model/news/news_response.dart';
+import '../../../api/Api.dart';
+import '../../../model/videos/video_response.dart';
 
 class SearchVideoProviders extends GetConnect{
-  var header = {
-    "Content-Type" : "application/json"
-  };
+  @override
+  void onInit() {
+    Api.dio.interceptors.add(LogInterceptor(responseBody: true));
+  }
 
-  Future<Response<NewsResponse>> getVideos(body) => post("https://api.afcvn.website/api/video/GetVideos",body,headers: header,decoder: (obj) => NewsResponse.fromJson(obj));
+  Future<VideoResponse?> getVideos(int pageIndex,String search) async{
+    var body =  {"PageIndex": "$pageIndex", "PageSize": "20", "SearchValue": search};
+    final response = await Api.dio.post("/video/GetVideos",data: body);
+    if(response.statusCode == 200) {
+      final Map<String, dynamic> parsed = json.decode(
+          jsonEncode(response.data));
+      return VideoResponse.fromJson(parsed);
+    }else{
+      return null;
+    }
+  }
 }

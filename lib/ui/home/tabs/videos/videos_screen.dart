@@ -79,7 +79,12 @@ class VideosScreen extends GetView<VideoController> {
                           width: MediaQuery.of(context).size.width,
                           child: const VideosListView(),
                         ),
-
+                        Obx(() => Visibility(
+                          visible: controller.isLoadDing.value,
+                          child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              child: const CircularProgressIndicator()),
+                        ))
                       ],
                     ),
                   )))),

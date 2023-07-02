@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMixin<HomeScreen>{
   final String sourceImage = "assets/images/";
   int _selectedIndex = 0;
   String? token = "";
@@ -140,4 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _selectedIndex = value;
     });
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
