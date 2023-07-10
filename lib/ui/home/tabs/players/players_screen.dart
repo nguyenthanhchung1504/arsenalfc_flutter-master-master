@@ -12,6 +12,21 @@ class PlayerScreen extends GetView<PlayerController> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(
+          title : Obx(() => Text(controller.listPlayers.elementAt(controller.indexItem.value).name ?? "",
+            style: const TextStyle(color: Colors.red,fontSize: 18,fontWeight: FontWeight.bold,  fontFamily: "montserrat_black",),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,)),
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          leading: GestureDetector(
+            child:
+            const Icon(Icons.arrow_back_ios_outlined, color: Colors.black),
+            onTap: () {
+              Get.back();
+            },
+          ),
+        ),
         body: Container(
           margin: const EdgeInsets.only(top: 80),
           child: PageViewJ(
@@ -28,17 +43,7 @@ class PlayerScreen extends GetView<PlayerController> {
                   },
                   child: Column(
                     children: [
-                      Obx(() => Visibility(
-                        child:  Padding(
-                        padding: const EdgeInsets.only(bottom: 100),
-                        child: Text(controller.listPlayers.elementAt(index).name ?? "",
-                          style: const TextStyle(color: Colors.red,fontSize: 25,fontWeight: FontWeight.bold,  fontFamily: "montserrat_black",),
-                          maxLines: 1,
-                        overflow: TextOverflow.ellipsis,),
-                      ),visible: index == controller.indexItem.value,
-                        maintainState: true,
-                        maintainAnimation: true,
-                        maintainSize: true,)),
+                      SizedBox(height: 50,),
                       SizedBox(
                         width: MediaQuery.of(context).size.width - 130,
                         height: MediaQuery.of(context).size.height / 2 - 50,

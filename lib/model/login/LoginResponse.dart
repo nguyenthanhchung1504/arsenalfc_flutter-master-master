@@ -19,7 +19,7 @@ class LoginResponse {
   String? message;
   bool? success;
   dynamic serverMessage;
-  bool? data;
+  dynamic data;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

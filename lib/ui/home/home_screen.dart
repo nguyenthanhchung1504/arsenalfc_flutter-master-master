@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:arsenalfc_flutter/extension/extension.dart';
+import 'package:arsenalfc_flutter/ui/home/tabs/more/more_screen.dart';
 import 'package:arsenalfc_flutter/ui/home/tabs/news/news_screen.dart';
 import 'package:arsenalfc_flutter/ui/home/tabs/players/players_screen.dart';
 import 'package:arsenalfc_flutter/ui/home/tabs/schedules/schedules_screen.dart';
@@ -22,10 +23,13 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
   String? token = "";
   List subscribed = [];
 
+  // PageController? _pageController;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    // _pageController = PageController(initialPage: _selectedIndex);
     if(Platform.isAndroid) {
       var initialzationSettingsAndroid = const AndroidInitializationSettings(
           '@mipmap/ic_launcher');
@@ -71,14 +75,18 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
     NewsScreen(),
     const SchedulesScreen(),
     const VideosScreen(),
-    const PlayerScreen()
+    const MoreScreen()
   ];
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return MaterialApp(
       home: Scaffold(
-        body: _widgetOptions.elementAt(_selectedIndex),
+        body: IndexedStack(
+          index: _selectedIndex,
+          children: _widgetOptions,
+        ),
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
@@ -116,16 +124,16 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
                     child: Image.asset("${sourceImage}ic_videos_select.png")),
                 label: "Video"),
 
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 icon: SizedBox(
                     width: 24,
                     height: 24,
-                    child: Image.asset("${sourceImage}ic_players.png")),
+                    child: Icon(Icons.settings,size: 24,color: Color(0xFF595959),)),
                 activeIcon: SizedBox(
                     width: 24,
                     height: 24,
-                    child: Image.asset("${sourceImage}ic_player_select.png")),
-                label: "Cầu thủ"),
+                    child: Icon(Icons.settings,size: 24,color:  Color(0xFFDC2F20),)),
+                label: "Thiết lập"),
           ],
           currentIndex: _selectedIndex,
           selectedItemColor: HexColor.fromHex("#DC2F20"),
@@ -138,6 +146,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
   void _onItemTapped(int value) {
     setState(() {
       _selectedIndex = value;
+      // _pageController!.jumpToPage(_selectedIndex);
     });
   }
 

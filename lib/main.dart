@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:notification_permissions/notification_permissions.dart';
@@ -49,6 +50,7 @@ FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   bool isConnected = await InternetConnectionChecker().hasConnection;
   if(isConnected) {
     await Firebase.initializeApp(
@@ -121,12 +123,18 @@ class MainScreen extends StatelessWidget {
     return FutureBuilder(
       future: Future.delayed(const Duration(seconds: 3)),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        // if (snapshot.connectionState == ConnectionState.waiting) {
-        //   return SplashScreen();
-        // } else {
-        //   return HomeScreen();
-        // }
-        return const SignInScreen();
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SplashScreen();
+        } else {
+          final storage = GetStorage();
+          if(storage.read(AppConst.KEY_EMAIL).toString().isNotEmpty){
+            return HomeScreen();
+          }else{
+            return const SignInScreen();
+          }
+
+        }
+        // return const SignInScreen();
       },
     );
   }

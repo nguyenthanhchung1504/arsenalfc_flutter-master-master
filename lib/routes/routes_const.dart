@@ -13,6 +13,7 @@ class AppConst{
   static const SEARCH_VIDEO = "/search_video";
   static const SIGN_IN = "/sign_in";
   static const SIGN_UP = "/sign_up";
+  static const MORE = "/more";
 
 
   /// KEY CACHE ////

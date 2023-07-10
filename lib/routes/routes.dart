@@ -1,4 +1,6 @@
 import 'package:arsenalfc_flutter/routes/routes_const.dart';
+import 'package:arsenalfc_flutter/ui/home/tabs/more/more_binding.dart';
+import 'package:arsenalfc_flutter/ui/home/tabs/more/more_screen.dart';
 import 'package:arsenalfc_flutter/ui/search/searchnews/search_news_binding.dart';
 import 'package:arsenalfc_flutter/ui/search/searchnews/search_news_screen.dart';
 import 'package:arsenalfc_flutter/ui/search/searchvideo/search_video_binding.dart';
@@ -30,12 +32,13 @@ import '../ui/signup/sign_up_binding.dart';
 routes() => [
   GetPage(name: AppConst.SIGN_IN, page: () => const SignInScreen(),binding: SignInBinding(),transition: Transition.rightToLeftWithFade,transitionDuration: const Duration(milliseconds: 500)),
   GetPage(name: AppConst.SIGN_UP, page: () => const SignUpScreen(),binding: SignUpBinding(),transition: Transition.rightToLeftWithFade,transitionDuration: const Duration(milliseconds: 500)),
-  GetPage(name: AppConst.MAIN, page: () => const MainScreen(),bindings: [NewsBinding(),VideosBinding(),SchedulesBinding(),PlayerBindings(),SignInBinding()]),
-  GetPage(name: AppConst.HOME, page: () => HomeScreen(),bindings: [NewsBinding(),VideosBinding(),SchedulesBinding(),PlayerBindings()]),
+  GetPage(name: AppConst.MAIN, page: () => const MainScreen(),bindings: [NewsBinding(),VideosBinding(),SchedulesBinding(),PlayerBindings(),SignInBinding(),MoreBindings()]),
+  GetPage(name: AppConst.HOME, page: () => HomeScreen(),bindings: [NewsBinding(),VideosBinding(),SchedulesBinding(),PlayerBindings(),MoreBindings()]),
   GetPage(name: AppConst.NEWS, page: () => NewsScreen(),binding: NewsBinding()),
   GetPage(name: AppConst.VIDEOS, page: () => const VideosScreen(),binding: VideosBinding()),
   GetPage(name: AppConst.SCHEDULES, page: () => const SchedulesScreen(),binding: SchedulesBinding()),
   GetPage(name: AppConst.PLAYERS, page: () => const PlayerScreen(),binding: PlayerBindings()),
+  GetPage(name: AppConst.MORE, page: () => const MoreScreen(),binding: MoreBindings()),
   GetPage(name: AppConst.DETAIL_NEWS, page: () =>  const DetailNewScreen(),binding: DetailNewBinding(),transition: Transition.rightToLeftWithFade,transitionDuration: const Duration(milliseconds: 500)),
   GetPage(name: AppConst.DETAIL_VIDEOS, page: () => const DetailVideoScreen(),binding: DetailVideoBinding(),transition: Transition.rightToLeftWithFade,transitionDuration: const Duration(milliseconds: 500)),
   GetPage(name: AppConst.DETAIL_PLAYER, page: () => const DetailPlayerScreen(),binding: DetailPlayerBindings(),transition: Transition.zoom,transitionDuration: const Duration(milliseconds: 500)),

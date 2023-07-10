@@ -40,6 +40,7 @@ class PlayerController extends GetxController{
     playerModel = PlayerModel.fromJson(response);
     listPlayers = playerModel.playerList ?? [];
     print(listPlayers.length);
+    update();
     return "success";
   }
 
