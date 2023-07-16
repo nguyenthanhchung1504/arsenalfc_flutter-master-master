@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
       if (notification != null && android != null) {
         flutterLocalNotificationsPlugin.show(
             notification.hashCode,
-            notification.title?.contains("bài viết") == true ? "Tin mới" : "Video mới",
+            notification.title,
             notification.body,
             NotificationDetails(
               android: AndroidNotificationDetails(
@@ -73,9 +73,9 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
 
   static final List<Widget> _widgetOptions = <Widget>[
     NewsScreen(),
-    const SchedulesScreen(),
-    const VideosScreen(),
-    const MoreScreen()
+    SchedulesScreen(),
+    VideosScreen(),
+    MoreScreen()
   ];
 
   @override

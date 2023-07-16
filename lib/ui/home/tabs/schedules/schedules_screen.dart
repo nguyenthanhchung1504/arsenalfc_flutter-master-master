@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 import 'result/result_screen.dart';
 
 class SchedulesScreen extends GetView<SchedulesController> {
-  const SchedulesScreen({Key? key}) : super(key: key);
 
 
   @override

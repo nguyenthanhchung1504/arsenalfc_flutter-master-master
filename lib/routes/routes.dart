@@ -30,18 +30,18 @@ import '../ui/home/tabs/videos/videos_screen.dart';
 import '../ui/signup/sign_up_binding.dart';
 
 routes() => [
-  GetPage(name: AppConst.SIGN_IN, page: () => const SignInScreen(),binding: SignInBinding(),transition: Transition.rightToLeftWithFade,transitionDuration: const Duration(milliseconds: 500)),
-  GetPage(name: AppConst.SIGN_UP, page: () => const SignUpScreen(),binding: SignUpBinding(),transition: Transition.rightToLeftWithFade,transitionDuration: const Duration(milliseconds: 500)),
-  GetPage(name: AppConst.MAIN, page: () => const MainScreen(),bindings: [NewsBinding(),VideosBinding(),SchedulesBinding(),PlayerBindings(),SignInBinding(),MoreBindings()]),
+  GetPage(name: AppConst.SIGN_IN, page: () =>  SignInScreen(),binding: SignInBinding(),transition: Transition.rightToLeftWithFade,transitionDuration: const Duration(milliseconds: 500)),
+  GetPage(name: AppConst.SIGN_UP, page: () => SignUpScreen(),binding: SignUpBinding(),transition: Transition.rightToLeftWithFade,transitionDuration: const Duration(milliseconds: 500)),
+  GetPage(name: AppConst.MAIN, page: () => MainScreen(),bindings: [NewsBinding(),VideosBinding(),SchedulesBinding(),PlayerBindings(),SignInBinding(),MoreBindings()]),
   GetPage(name: AppConst.HOME, page: () => HomeScreen(),bindings: [NewsBinding(),VideosBinding(),SchedulesBinding(),PlayerBindings(),MoreBindings()]),
   GetPage(name: AppConst.NEWS, page: () => NewsScreen(),binding: NewsBinding()),
-  GetPage(name: AppConst.VIDEOS, page: () => const VideosScreen(),binding: VideosBinding()),
-  GetPage(name: AppConst.SCHEDULES, page: () => const SchedulesScreen(),binding: SchedulesBinding()),
-  GetPage(name: AppConst.PLAYERS, page: () => const PlayerScreen(),binding: PlayerBindings()),
-  GetPage(name: AppConst.MORE, page: () => const MoreScreen(),binding: MoreBindings()),
-  GetPage(name: AppConst.DETAIL_NEWS, page: () =>  const DetailNewScreen(),binding: DetailNewBinding(),transition: Transition.rightToLeftWithFade,transitionDuration: const Duration(milliseconds: 500)),
-  GetPage(name: AppConst.DETAIL_VIDEOS, page: () => const DetailVideoScreen(),binding: DetailVideoBinding(),transition: Transition.rightToLeftWithFade,transitionDuration: const Duration(milliseconds: 500)),
-  GetPage(name: AppConst.DETAIL_PLAYER, page: () => const DetailPlayerScreen(),binding: DetailPlayerBindings(),transition: Transition.zoom,transitionDuration: const Duration(milliseconds: 500)),
+  GetPage(name: AppConst.VIDEOS, page: () => VideosScreen(),binding: VideosBinding()),
+  GetPage(name: AppConst.SCHEDULES, page: () => SchedulesScreen(),binding: SchedulesBinding()),
+  GetPage(name: AppConst.PLAYERS, page: () => PlayerScreen(),binding: PlayerBindings()),
+  GetPage(name: AppConst.MORE, page: () => MoreScreen(),binding: MoreBindings()),
+  GetPage(name: AppConst.DETAIL_NEWS, page: () =>   DetailNewScreen(),binding: DetailNewBinding(),transition: Transition.rightToLeftWithFade,transitionDuration: const Duration(milliseconds: 500)),
+  GetPage(name: AppConst.DETAIL_VIDEOS, page: () =>  DetailVideoScreen(),binding: DetailVideoBinding(),transition: Transition.rightToLeftWithFade,transitionDuration: const Duration(milliseconds: 500)),
+  GetPage(name: AppConst.DETAIL_PLAYER, page: () =>  DetailPlayerScreen(),binding: DetailPlayerBindings(),transition: Transition.zoom,transitionDuration: const Duration(milliseconds: 500)),
   GetPage(name: AppConst.SEARCH_NEW, page: () => SearchNewsScreen(),binding: SearchNewsBinding(),transition: Transition.rightToLeftWithFade,transitionDuration: const Duration(milliseconds: 500)),
   GetPage(name: AppConst.SEARCH_VIDEO, page: () => SearchVideoScreen(),binding: SearchVideoBinding(),transition: Transition.rightToLeftWithFade,transitionDuration: const Duration(milliseconds: 500)),
 ];

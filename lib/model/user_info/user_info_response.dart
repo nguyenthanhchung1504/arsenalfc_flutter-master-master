@@ -1,27 +1,25 @@
+import 'user_data.dart';
 
+class UserInfoResponse {
+  UserInfoResponse({
+      this.resultCode, 
+      this.message, 
+      this.success, 
+      this.serverMessage, 
+      this.userData,});
 
-import 'DataLogin.dart';
-
-class LoginResponse {
-  LoginResponse({
-    this.resultCode,
-    this.message,
-    this.success,
-    this.serverMessage,
-    this.data,});
-
-  LoginResponse.fromJson(dynamic json) {
+  UserInfoResponse.fromJson(dynamic json) {
     resultCode = json['ResultCode'];
     message = json['Message'];
     success = json['Success'];
     serverMessage = json['ServerMessage'];
-    data = json['Data'] != null ? DataLogin.fromJson(json['Data']) : null;
+    userData = json['Data'] != null ? UserData.fromJson(json['Data']) : null;
   }
   int? resultCode;
   String? message;
   bool? success;
+  UserData? userData;
   dynamic serverMessage;
-  DataLogin? data;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -29,8 +27,8 @@ class LoginResponse {
     map['Message'] = message;
     map['Success'] = success;
     map['ServerMessage'] = serverMessage;
-    if (data != null) {
-      map['Data'] = data?.toJson();
+    if (userData != null) {
+      map['Data'] = userData?.toJson();
     }
     return map;
   }

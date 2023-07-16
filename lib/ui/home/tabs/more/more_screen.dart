@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:arsenalfc_flutter/routes/routes_const.dart';
 import 'package:arsenalfc_flutter/ui/home/tabs/more/more_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
+
 
 class MoreScreen extends GetView<MoreController>{
-  const MoreScreen({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +54,15 @@ class MoreScreen extends GetView<MoreController>{
                 child: const Text("Gooners",style: TextStyle(fontSize: 14,color: Color(0xFF595959)),)
               ),
 
-              Container(
-                alignment: Alignment.center,
-                width: Get.width,
-                color: Colors.white,
-                padding: const EdgeInsets.only(bottom: 16),
-                child: Text("NGUYỄN THÀNH CHUNG".toUpperCase(),style: const TextStyle(fontSize: 16,color: Color(0xFF0A1220),fontWeight: FontWeight.w700),),
-              ),
+
+             Obx(() =>  Container(
+                 alignment: Alignment.center,
+                 width: Get.width,
+                 color: Colors.white,
+                 padding: const EdgeInsets.only(bottom: 16),
+                 child: Text((controller.userData?.value?.fullName ?? "").toUpperCase(),style: const TextStyle(fontSize: 16,color: Color(0xFF0A1220),fontWeight: FontWeight.w700),)
+             ),),
+
 
 
               Container(
@@ -104,53 +110,73 @@ class MoreScreen extends GetView<MoreController>{
                 ),
               ),
 
-              Container(
-                color: Colors.white,
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 12),
-                child: Row(
-                  children: [
-                    Image.asset("assets/images/ic_share_app.png",width: 20,height: 20,),
-                    const SizedBox(width: 12,),
-                    const Expanded(
-                        child: Text("Giới thiệu app cho bạn bè",style: TextStyle(fontSize: 14,color: Color(0xFF595959),fontWeight: FontWeight.w400),)
-                    ),
-                    const SizedBox(width: 12,),
-                  ],
+              GestureDetector(
+                onTap: (){
+                  if(Platform.isAndroid){
+                    Share.share("https://play.google.com/store/apps/details?id=com.ntchung.arsenalafc&hl=vi-VN",subject: "Offical AFCVN");
+                  }else{
+                    Share.share("https://apps.apple.com/vn/app/offical-afcvn/id6445896310?l=vi",subject: "Offical AFCVN");
+                  }
+                },
+                child: Container(
+                  color: Colors.white,
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 12),
+                  child: Row(
+                    children: [
+                      Image.asset("assets/images/ic_share_app.png",width: 20,height: 20,),
+                      const SizedBox(width: 12,),
+                      const Expanded(
+                          child: Text("Giới thiệu app cho bạn bè",style: TextStyle(fontSize: 14,color: Color(0xFF595959),fontWeight: FontWeight.w400),)
+                      ),
+                      const SizedBox(width: 12,),
+                    ],
+                  ),
                 ),
               ),
 
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 12),
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12),bottomRight:  Radius.circular(12))
-                ),
-                child: Row(
-                  children: [
-                    Image.asset("assets/images/ic_rate_app.png",width: 24,height: 24,),
-                    const SizedBox(width: 12,),
-                    const Expanded(
-                        child: Text("Đánh giá app",style: TextStyle(fontSize: 14,color: Color(0xFF595959),fontWeight: FontWeight.w400),)
-                    ),
-                    const SizedBox(width: 12,),
-                  ],
+              GestureDetector(
+                onTap: (){
+                  controller.showRate();
+                },
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 12),
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12),bottomRight:  Radius.circular(12))
+                  ),
+                  child: Row(
+                    children: [
+                      Image.asset("assets/images/ic_rate_app.png",width: 24,height: 24,),
+                      const SizedBox(width: 12,),
+                      const Expanded(
+                          child: Text("Đánh giá app",style: TextStyle(fontSize: 14,color: Color(0xFF595959),fontWeight: FontWeight.w400),)
+                      ),
+                      const SizedBox(width: 12,),
+                    ],
+                  ),
                 ),
               ),
 
 
 
-              Container(
-                alignment: Alignment.center,
-                width: Get.width,
-                margin: const EdgeInsets.symmetric(horizontal: 16,vertical: 20),
-                padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 12),
-                decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(12)
+              GestureDetector(
+                onTap: (){
+                  controller.storage.erase();
+                  Get.offNamed(AppConst.SIGN_IN);
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  width: Get.width,
+                  margin: const EdgeInsets.symmetric(horizontal: 16,vertical: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 12),
+                  decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(12)
+                  ),
+                  child: const Text("Đăng xuất",style: TextStyle(fontSize: 14,color: Colors.white,fontWeight: FontWeight.w400),)
                 ),
-                child: const Text("Đăng xuất",style: TextStyle(fontSize: 14,color: Colors.white,fontWeight: FontWeight.w400),)
               ),
 
             ],

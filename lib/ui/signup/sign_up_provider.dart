@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:arsenalfc_flutter/model/login/LoginResponse.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 import '../../api/Api.dart';
+import '../../model/login/RegisterResponse.dart';
 
 class SignUpProvider extends GetConnect{
   @override
@@ -12,13 +12,13 @@ class SignUpProvider extends GetConnect{
     Api.dio.interceptors.add(LogInterceptor(responseBody: true));
   }
 
-  Future<LoginResponse?> register(String fullName,String email,String phone,String password) async{
+  Future<RegisterResponse?> register(String fullName,String email,String phone,String password) async{
     var body =  {"UserName": email, "FullName": fullName, "Email": email,"PhoneNumber" : phone,"Password" : password};
     final response = await Api.dio.post("/Login/MobileSignUp",data: body);
     if(response.statusCode == 200) {
       final Map<String, dynamic> parsed = json.decode(
           jsonEncode(response.data));
-      return LoginResponse.fromJson(parsed);
+      return RegisterResponse.fromJson(parsed);
     }else{
       return null;
     }

@@ -11,6 +11,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
+import '../../model/login/RegisterResponse.dart';
+
 class SignUpController extends GetxController{
   final SignUpProvider provider;
   final storage = GetStorage();
@@ -47,7 +49,7 @@ class SignUpController extends GetxController{
       if (validateRegister()) {
         if (validateEmail()) {
           EasyLoading.show(status: 'loading...');
-          LoginResponse? response = await provider.register(
+          RegisterResponse? response = await provider.register(
               fullName.text, email.text, phone.text, textPassword.text);
           if (response?.resultCode == StatusResponse.Duplicate) {
             Fluttertoast.showToast(

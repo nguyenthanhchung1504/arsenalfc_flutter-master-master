@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import '../../routes/routes_const.dart';
 
 class SignInScreen extends GetView<SignInController> {
-  const SignInScreen({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

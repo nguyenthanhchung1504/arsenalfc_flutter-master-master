@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:arsenalfc_flutter/model/detailvideo/detail_video_response.dart';
 import 'package:arsenalfc_flutter/model/detailvideo/video_info.dart';
 import 'package:arsenalfc_flutter/model/videos/data_videos.dart';
 import 'package:collection/collection.dart';
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:pod_player/pod_player.dart';
 
 import '../../../../model/detailvideo/data_detail_video_model.dart';
+import '../../model/videos/video_response.dart';
 import 'detail_video_provider.dart';
 
 class DetailVideoController extends GetxController {
@@ -63,52 +65,38 @@ class DetailVideoController extends GetxController {
   }
 
   void getDetailVideo(String id) async {
-    await provider.getDetailVideo(id).then((result) {
-      if (result.body?.resultCode == 1) {
-        if (result.body?.data != null) {
-          result.body?.data?.forEach((video) {
-            entity.value = video;
+    DetailVideoResponse? response = await provider.getDetailVideo(id);
+    response?.data?.forEach((video) {
+      entity.value = video;
 
-            if (video.youtubeLink?.isNotEmpty ==
-                true) {
-                podController.changeVideo(
-                    playVideoFrom:
-                        PlayVideoFrom.youtube(video.youtubeLink ?? ""));
-            } else {
-              if(video.videoInfo?.isNotEmpty == true){
-                var valueMap = json.decode(video.videoInfo ?? "");
-                VideoInfo info = VideoInfo.fromJson(valueMap);
-                videoInfo.value = info;
-                if (videoInfo.value.uri?.isNotEmpty == true) {
-                  podController.changeVideo(
-                      playVideoFrom: PlayVideoFrom.vimeo(
-                          (videoInfo.value.uri ?? "").split("/").lastOrNull ??
-                              ""));
-                }
-              }
-
-            }
-          });
-          update();
+      if (video.youtubeLink?.isNotEmpty == true) {
+        podController.changeVideo(
+            playVideoFrom: PlayVideoFrom.youtube(video.youtubeLink ?? ""));
+      } else {
+        if (video.videoInfo?.isNotEmpty == true) {
+          var valueMap = json.decode(video.videoInfo ?? "");
+          VideoInfo info = VideoInfo.fromJson(valueMap);
+          videoInfo.value = info;
+          if (videoInfo.value.uri?.isNotEmpty == true) {
+            podController.changeVideo(
+                playVideoFrom: PlayVideoFrom.vimeo(
+                    (videoInfo.value.uri ?? "").split("/").lastOrNull ?? ""));
+          }
         }
       }
     });
+    update();
   }
 
   void getVideosPaging() async {
-    var body = {"PageIndex": 1, "PageSize": "20", "SearchValue": ""};
-
     list.clear();
-    await provider.getVideos(body).then((result) {
-      if (result.body?.resultCode == 1) {
-        result.body?.data?.forEach((element) {
-          if (listArgument.value.firstOrNull?.id != element.id) {
-            list.add(element);
-          }
-        });
-        update();
-      } else {}
+    VideoResponse? response = await provider.getVideos();
+    response?.data?.forEach((element) {
+      if (listArgument.firstOrNull?.id != element.id) {
+        list.add(element);
+      }
     });
+    update();
   }
 
   @override

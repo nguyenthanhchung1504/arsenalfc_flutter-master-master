@@ -127,11 +127,17 @@ class MainScreen extends StatelessWidget {
           return SplashScreen();
         } else {
           final storage = GetStorage();
-          if(storage.read(AppConst.KEY_EMAIL).toString().isNotEmpty){
-            return HomeScreen();
+
+          if(storage.read(AppConst.KEY_EMAIL) != null){
+            if(storage.read(AppConst.KEY_EMAIL).toString().isNotEmpty){
+              return HomeScreen();
+            }else{
+              return SignInScreen();
+            }
           }else{
-            return const SignInScreen();
+            return SignInScreen();
           }
+
 
         }
         // return const SignInScreen();

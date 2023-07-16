@@ -4,7 +4,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
-import '../../routes/routes_const.dart';
 import '../../utils/colors.dart';
 
 class SignUpScreen extends GetView<SignUpController>{

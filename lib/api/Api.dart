@@ -9,9 +9,13 @@ class Api {
       receiveTimeout: const Duration(seconds: 30),
       headers: {
         "Accept": "application/json",
+
       });
 
   static Dio dio = Dio(options);
+
+  static initDio(){
+  }
 
 
 

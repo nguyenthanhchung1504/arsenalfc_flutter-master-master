@@ -10,7 +10,6 @@ import 'package:pageviewj/pageviewj.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class VideosScreen extends GetView<VideoController> {
-  const VideosScreen({Key? key}) : super(key: key);
 
 
 
@@ -123,7 +122,7 @@ class HeaderView extends GetView<VideoController> {
                                       topLeft: Radius.circular(12),
                                       topRight: Radius.circular(12)),
                                   child: CachedNetworkImage(
-                                      imageUrl: controller.list
+                                      imageUrl: controller.listHeader
                                           .elementAt(index)
                                           .thumbnail ??
                                           "",

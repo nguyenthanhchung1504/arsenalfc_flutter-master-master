@@ -21,4 +21,5 @@ class AppConst{
   static const KEY_FULLNAME = "KEY_FULLNAME";
   static const KEY_PHONE = "KEY_PHONE";
   static const KEY_PASSWORD = "KEY_PASSWORD";
+  static const TOKEN = "TOKEN";
 }
