@@ -13,7 +13,7 @@ class PlayerController extends GetxController{
   PlayerController({required this.provider});
 
 
-  List<PlayerList> listPlayers = [];
+  RxList<PlayerList> listPlayers = RxList();
   PlayerModel playerModel = PlayerModel();
 
   RxInt indexItem = 0.obs;
@@ -38,7 +38,7 @@ class PlayerController extends GetxController{
     var data = await DefaultAssetBundle.of(Get.context!).loadString("assets/json/afc_arsenal.json");
     var response = json.decode(data);
     playerModel = PlayerModel.fromJson(response);
-    listPlayers = playerModel.playerList ?? [];
+    listPlayers.value = playerModel.playerList ?? [];
     print(listPlayers.length);
     update();
     return "success";
