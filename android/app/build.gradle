@@ -55,8 +55,8 @@ android {
         applicationId "com.ntchung.arsenalafc"
         minSdkVersion 24
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 15
-        versionName "3.7"
+        versionCode 16
+        versionName "3.8"
         multiDexEnabled true
     }
 
