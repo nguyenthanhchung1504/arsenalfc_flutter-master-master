@@ -24,6 +24,9 @@ class MoreProvider extends GetConnect{
     if(response.statusCode == 200) {
       final Map<String, dynamic> parsed = json.decode(
           jsonEncode(response.data));
+      if(response.data.toString().contains("401") && response.data.toString().contains("Unauthen")){
+        return null;
+      }
       return UserInfoResponse.fromJson(parsed);
     }else{
       return null;

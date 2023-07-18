@@ -30,7 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   intl: any
-  http: any
+  http: ^0.13.6
   get: any
   cached_network_image: any
   smooth_page_indicator: any
@@ -60,6 +60,9 @@ dependencies:
   get_storage: ^2.1.1
   rate_my_app: ^2.0.0
   share_plus: ^7.0.2
+  image_picker: ^1.0.1
+  permission_handler: ^10.4.3
+  uuid: ^3.0.6
 
 
 

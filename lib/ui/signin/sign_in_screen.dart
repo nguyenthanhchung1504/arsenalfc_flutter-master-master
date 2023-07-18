@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../routes/routes_const.dart';
@@ -132,6 +133,17 @@ class SignInScreen extends GetView<SignInController> {
                     ),
                   ),
                   GestureDetector(
+                    onTap: (){
+                      Fluttertoast.showToast(
+                          msg: "Tính năng đang phát triển.",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.TOP,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor:  Colors.white,
+                          textColor: Colors.black,
+                          fontSize: 14.0
+                      );
+                    },
                     child:  Container(
                       padding: const EdgeInsets.only(right: 16,bottom: 12),
                       child: const Align(

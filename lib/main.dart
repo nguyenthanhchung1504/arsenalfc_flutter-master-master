@@ -123,23 +123,7 @@ class MainScreen extends StatelessWidget {
     return FutureBuilder(
       future: Future.delayed(const Duration(seconds: 3)),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return SplashScreen();
-        } else {
-          final storage = GetStorage();
-
-          if(storage.read(AppConst.KEY_EMAIL) != null){
-            if(storage.read(AppConst.KEY_EMAIL).toString().isNotEmpty){
-              return HomeScreen();
-            }else{
-              return SignInScreen();
-            }
-          }else{
-            return SignInScreen();
-          }
-
-
-        }
+        return SplashScreen();
         // return const SignInScreen();
       },
     );

@@ -17,7 +17,7 @@ class UserData {
   String? fullName;
   String? email;
   String? phoneNumber;
-  dynamic avatarLink;
+  String? avatarLink;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

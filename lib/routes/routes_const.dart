@@ -14,6 +14,7 @@ class AppConst{
   static const SIGN_IN = "/sign_in";
   static const SIGN_UP = "/sign_up";
   static const MORE = "/more";
+  static const CHANGE_PROFILE = "/changeprofile";
 
 
   /// KEY CACHE ////
