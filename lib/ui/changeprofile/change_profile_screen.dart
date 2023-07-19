@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:arsenalfc_flutter/ui/changeprofile/change_profile_controller.dart';
 import 'package:arsenalfc_flutter/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -28,14 +30,14 @@ class ChangeProfileScreen extends GetView<ChangeProfileController>{
           leading: GestureDetector(
             child: const Icon(Icons.arrow_back_ios_outlined, color: Colors.black),
             onTap: () {
-              Get.back();
+              Get.back(result: controller.linkFile.value.isNotEmpty == true);
             },
           ),
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
+              Obx(() =>  Container(
                 alignment: Alignment.center,
                 child: GestureDetector(
                   onTap: (){
@@ -48,13 +50,15 @@ class ChangeProfileScreen extends GetView<ChangeProfileController>{
                     child:   Stack(
                       alignment: Alignment.center,
                       children: [
-                        Obx(() => ClipOval(
+                        ClipOval(
                           child: SizedBox.fromSize(
                             size: const Size.fromRadius(48), // Image radius
-                            child: Image.network(controller.linkAvatar.value.isNotEmpty == true ? controller.linkAvatar.value
-                                : 'https://www.w3schools.com/w3images/avatar2.png', fit: BoxFit.cover),
+                            child: controller.linkFile.isEmpty == true ?
+                            Image.network(controller.linkAvatar.value.isNotEmpty == true ? controller.linkAvatar.value
+                                : 'https://www.w3schools.com/w3images/avatar2.png', fit: BoxFit.cover) :
+                            Image.file(File(controller.linkFile.value), fit: BoxFit.cover),
                           ),
-                        ),),
+                        ),
                         Align(
                           alignment: Alignment.bottomRight,
                           child: Container(
@@ -70,7 +74,7 @@ class ChangeProfileScreen extends GetView<ChangeProfileController>{
                     ),
                   ),
                 ),
-              ),
+              ),),
 
               const SizedBox(height: 20,),
               Container(

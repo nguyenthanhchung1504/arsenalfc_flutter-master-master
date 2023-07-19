@@ -68,8 +68,11 @@ class MoreScreen extends GetView<MoreController>{
 
 
               GestureDetector(
-                onTap: (){
-                  Get.toNamed(AppConst.CHANGE_PROFILE,arguments: controller.userData?.value);
+                onTap: () async{
+                  bool response = await Get.toNamed(AppConst.CHANGE_PROFILE,arguments: controller.userData?.value);
+                  if(response){
+                    controller.getUserInfo();
+                  }
                 },
                 child: Container(
                   margin: EdgeInsets.all(16),

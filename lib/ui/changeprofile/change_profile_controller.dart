@@ -20,6 +20,7 @@ class ChangeProfileController extends GetxController{
   TextEditingController textMail = TextEditingController();
 
   RxString linkAvatar = "".obs;
+  RxString linkFile = "".obs;
 
 
 
@@ -75,6 +76,7 @@ class ChangeProfileController extends GetxController{
 
     if(image?.path != null) {
       File imageFile = File(image?.path ?? "");
+      linkFile.value = image?.path ?? "";
       EasyLoading.show();
       postImage(imageFile);
     }
@@ -84,6 +86,7 @@ class ChangeProfileController extends GetxController{
     UploadAvatarResponse? response = await provider.postImage(file);
     if (response?.data != null) {
       linkAvatar.value = response?.data ?? "";
+      print( response?.data ?? "");
     }
     update();
     EasyLoading.dismiss();

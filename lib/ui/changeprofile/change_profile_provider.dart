@@ -20,13 +20,13 @@ class ChangeProfileProvider extends GetConnect{
     Api.dio.interceptors.add(_dio.LogInterceptor(responseBody: true));
   }
 
-  Future<UploadAvatarResponse?> postImage(File file) async{
+  Future<UploadAvatarResponse?> postImage(File? file) async{
     String? token =  storage.read(AppConst.TOKEN);
 
 
     final formData = _dio.FormData.fromMap({
       "file": await _dio.MultipartFile.fromFile(
-        file.path,
+        file?.path ?? "",
         filename: "${const Uuid().v4()}.png",
       ),
     });
