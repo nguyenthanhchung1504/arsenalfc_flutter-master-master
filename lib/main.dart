@@ -51,11 +51,12 @@ FlutterLocalNotificationsPlugin();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
-  bool isConnected = await InternetConnectionChecker().hasConnection;
+  // bool isConnected = await InternetConnectionChecker().hasConnection;
+  bool isConnected = true;
   if(isConnected) {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
-    await FirebaseMessaging.instance.subscribeToTopic(KeyString.KEY_NEWS);
+
     if(kReleaseMode) {
       FlutterError.onError = (errorDetails) {
         // If you wish to record a "non-fatal" exception, please use `FirebaseCrashlytics.instance.recordFlutterError` instead

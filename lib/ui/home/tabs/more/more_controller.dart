@@ -43,10 +43,10 @@ class MoreController extends GetxController{
 
     UserInfoResponse? response = await provider.getUserInfo(token ?? "");
     if(response == null){
-      getUserInfo();
+      Get.offNamed(AppConst.SIGN_IN);
     }else{
       if(response.resultCode == 401){
-        getUserInfo();
+        Get.offNamed(AppConst.SIGN_IN);
       }else{
         userData?.value = response.userData;
         linkAvatar.value = response.userData?.avatarLink ?? "";

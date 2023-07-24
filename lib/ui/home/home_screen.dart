@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../../main.dart';
+import '../../utils/messages.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -30,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
     // TODO: implement initState
     super.initState();
     // _pageController = PageController(initialPage: _selectedIndex);
+    FirebaseMessaging.instance.subscribeToTopic(KeyString.KEY_NEWS);
     if(Platform.isAndroid) {
       var initialzationSettingsAndroid = const AndroidInitializationSettings(
           '@mipmap/ic_launcher');
