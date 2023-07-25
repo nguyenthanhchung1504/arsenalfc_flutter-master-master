@@ -2,12 +2,15 @@ import 'dart:io';
 
 import 'package:arsenalfc_flutter/model/upload/upload_avatar_response.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../model/user_info/user_data.dart';
+import '../../utils/colors.dart';
 import 'change_profile_provider.dart';
 
 class ChangeProfileController extends GetxController{
@@ -90,5 +93,39 @@ class ChangeProfileController extends GetxController{
     }
     update();
     EasyLoading.dismiss();
+  }
+
+  void updateUser() async{
+    if(textMail.text.isEmpty){
+      Fluttertoast.showToast(
+          msg: "Email không được để trống!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: const Color(AppColors.RED),
+          textColor: Colors.white,
+          fontSize: 14.0
+      );
+      return;
+    }
+
+    if(textFullName.text.isEmpty){
+      Fluttertoast.showToast(
+          msg: "Họ tên không được để trống!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: const Color(AppColors.RED),
+          textColor: Colors.white,
+          fontSize: 14.0
+      );
+      return;
+    }
+
+
+    EasyLoading.show();
+    await provider.updateUser(UserData(fullName: textFullName.text,email: textMail.text,phoneNumber: textPhone.text));
+    EasyLoading.dismiss();
+
   }
 }

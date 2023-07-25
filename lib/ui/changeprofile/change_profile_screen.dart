@@ -30,7 +30,11 @@ class ChangeProfileScreen extends GetView<ChangeProfileController>{
           leading: GestureDetector(
             child: const Icon(Icons.arrow_back_ios_outlined, color: Colors.black),
             onTap: () {
-              Get.back(result: controller.linkFile.value.isNotEmpty == true);
+              Get.back(result: controller.linkFile.value.isNotEmpty == true ||
+              controller.textFullName.text != controller.userData?.value?.fullName ||
+                  controller.textMail.text != controller.userData?.value?.email ||
+                  controller.textPhone.text != controller.userData?.value?.phoneNumber
+              );
             },
           ),
         ),
@@ -85,7 +89,6 @@ class ChangeProfileScreen extends GetView<ChangeProfileController>{
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child:  TextFormField(
-                  readOnly: true,
                   controller: controller.textFullName,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
@@ -127,7 +130,7 @@ class ChangeProfileScreen extends GetView<ChangeProfileController>{
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child:  TextFormField(
-                  readOnly: true,
+            
                   controller: controller.textPhone,
                   keyboardType: TextInputType.number,
                   textInputAction: TextInputAction.next,
@@ -170,7 +173,7 @@ class ChangeProfileScreen extends GetView<ChangeProfileController>{
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child:  TextFormField(
-                  readOnly: true,
+            
                   controller: controller.textMail,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
@@ -210,15 +213,8 @@ class ChangeProfileScreen extends GetView<ChangeProfileController>{
 
               GestureDetector(
                 onTap: (){
-                  Fluttertoast.showToast(
-                      msg: "Tính năng đang phát triển.",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.TOP,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: const Color(AppColors.RED),
-                      textColor: Colors.white,
-                      fontSize: 14.0
-                  );
+                  FocusScope.of(context).unfocus();
+                  controller.updateUser();
                 },
                 child: Container(
                   width: Get.width,

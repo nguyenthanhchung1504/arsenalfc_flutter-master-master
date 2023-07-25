@@ -10,6 +10,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../api/Api.dart';
+import '../../model/user_info/user_data.dart';
 import '../../routes/routes_const.dart';
 
 class ChangeProfileProvider extends GetConnect{
@@ -41,6 +42,30 @@ class ChangeProfileProvider extends GetConnect{
       final Map<String, dynamic> parsed = json.decode(
           jsonEncode(response.data));
       return UploadAvatarResponse.fromJson(parsed);
+    }else{
+      return null;
+    }
+  }
+
+
+  Future<String?> updateUser(UserData? userData) async{
+    String? token =  storage.read(AppConst.TOKEN);
+
+    final response = await Api.dio.post("/User/UpdateUser",data: {
+      "PhoneNumber" : userData?.phoneNumber,
+      "FullName" : userData?.fullName,
+      "Email" : userData?.email,
+      "Password" : ""
+    },options: _dio.Options(
+        headers: {
+          "Accept": "application/json",
+          "Authorization" : token
+        }
+    ));
+    if(response.statusCode == 200) {
+      final Map<String, dynamic> parsed = json.decode(
+          jsonEncode(response.data));
+      return parsed.toString();
     }else{
       return null;
     }

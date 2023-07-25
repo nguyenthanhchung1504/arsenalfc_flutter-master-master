@@ -122,7 +122,7 @@ class SignUpController extends GetxController{
       return false;
     }
 
-    if(phone.text.isEmpty){
+    if(textPassword.text.isEmpty){
       Fluttertoast.showToast(
           msg: "Bạn chưa nhập Password",
           toastLength: Toast.LENGTH_SHORT,
