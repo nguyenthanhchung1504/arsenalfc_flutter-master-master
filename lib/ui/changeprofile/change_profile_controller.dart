@@ -9,8 +9,10 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../model/login/LoginResponse.dart';
 import '../../model/user_info/user_data.dart';
 import '../../utils/colors.dart';
+import '../../utils/utils.dart';
 import 'change_profile_provider.dart';
 
 class ChangeProfileController extends GetxController{
@@ -124,6 +126,7 @@ class ChangeProfileController extends GetxController{
 
 
     EasyLoading.show();
+
     await provider.updateUser(UserData(fullName: textFullName.text,email: textMail.text,phoneNumber: textPhone.text));
     EasyLoading.dismiss();
 

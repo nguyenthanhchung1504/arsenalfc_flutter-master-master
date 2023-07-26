@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:pod_player/pod_player.dart';
 
 import '../../../../model/detailvideo/data_detail_video_model.dart';
+import '../../model/recomment/video/recommend_video_response.dart';
 import '../../model/videos/video_response.dart';
 import 'detail_video_provider.dart';
 
@@ -90,8 +91,8 @@ class DetailVideoController extends GetxController {
 
   void getVideosPaging() async {
     list.clear();
-    VideoResponse? response = await provider.getVideos();
-    response?.data?.forEach((element) {
+    RecommendVideoResponse? response = await provider.getVideos((listArgument.firstOrNull?.id ?? 0).toString());
+    response?.data?.recommendVideo?.forEach((element) {
       if (listArgument.firstOrNull?.id != element.id) {
         list.add(element);
       }

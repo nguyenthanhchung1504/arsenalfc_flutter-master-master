@@ -1,4 +1,3 @@
-
 import 'package:collection/collection.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -19,7 +18,7 @@ class DetailController extends GetxController {
   RxList<DataNewDetail>? listDetail = RxList();
   RxList<RecommendNews>? list = RxList();
 
-  late WebViewController webViewController;
+   Rx<WebViewController> webViewController = WebViewController().obs;
 
   @override
   void onInit() {
@@ -33,14 +32,14 @@ class DetailController extends GetxController {
         }
       });
     }
-    webViewController = WebViewController();
-    webViewController.setJavaScriptMode(JavaScriptMode.unrestricted);
+    webViewController.value.setJavaScriptMode(JavaScriptMode.unrestricted);
 
     getDetailNew((listArgument.value.firstOrNull?.id ?? 0).toString());
     getRecommendNews((listArgument.value.firstOrNull?.id ?? 0).toString());
   }
 
   void getDetailNew(String id) async {
+    listDetail?.value.clear();
     DetailNewModel? response = await provider.getDetailNews(id);
     if (response?.resultCode == 1) {
       if (response?.data?.isNotEmpty == true) {
@@ -56,19 +55,17 @@ class DetailController extends GetxController {
         </div>
       </body>
     </html>""";
-        webViewController.loadHtmlString(html);
+        webViewController.value.loadHtmlString(html);
         update();
       }
     }
   }
 
-
-  void getRecommendNews(String id) async{
+  void getRecommendNews(String id) async {
     RecommendNewsResponse? response = await provider.getNewsRecommend(id);
     if (response?.resultCode == 1) {
-        list?.value = response?.data?.recommendNews ?? [];
-        update();
+      list?.value = response?.data?.recommendNews ?? [];
+      update();
     }
   }
-
 }

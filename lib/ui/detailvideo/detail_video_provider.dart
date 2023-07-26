@@ -1,11 +1,11 @@
 
 import 'dart:convert';
 
+import 'package:arsenalfc_flutter/model/recomment/video/recommend_video_response.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 import '../../../../model/detailvideo/detail_video_response.dart';
-import '../../../../model/videos/video_response.dart';
 import '../../api/Api.dart';
 
 
@@ -28,13 +28,12 @@ class DetailVideoProvider extends GetConnect{
   }
 
 
-  Future<VideoResponse?> getVideos() async{
-    var body =  {"PageIndex": "1", "PageSize": "20", "SearchValue": ""};
-    final response = await Api.dio.post("/video/GetVideos",data: body);
+  Future<RecommendVideoResponse?> getVideos(String id) async{
+    final response = await Api.dio.get("/video/GetVideoByIDWithRecommendation/$id");
     if(response.statusCode == 200) {
       final Map<String, dynamic> parsed = json.decode(
           jsonEncode(response.data));
-      return VideoResponse.fromJson(parsed);
+      return RecommendVideoResponse.fromJson(parsed);
     }else{
       return null;
     }

@@ -3,13 +3,16 @@
 import 'dart:io';
 
 import 'package:arsenalfc_flutter/routes/routes_const.dart';
+import 'package:arsenalfc_flutter/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 
+import '../../../../model/login/LoginResponse.dart';
 import '../../../../model/user_info/user_data.dart';
 import '../../../../model/user_info/user_info_response.dart';
+import '../../../../utils/status.dart';
 import 'more_provider.dart';
 
 class MoreController extends GetxController{
@@ -40,13 +43,21 @@ class MoreController extends GetxController{
 
   void getUserInfo() async{
     String? token =  storage.read(AppConst.TOKEN);
+    String? username =  storage.read(AppConst.KEY_EMAIL);
+    String? password =  storage.read(AppConst.KEY_PASSWORD);
 
     UserInfoResponse? response = await provider.getUserInfo(token ?? "");
     if(response == null){
       Get.offNamed(AppConst.SIGN_IN);
     }else{
       if(response.resultCode == 401){
-        Get.offNamed(AppConst.SIGN_IN);
+        LoginResponse? responseLogin = await Utils().login(username ?? "", password ?? "");
+        if (responseLogin?.resultCode == StatusResponse.Success) {
+          storage.write(AppConst.TOKEN, responseLogin?.data?.token ?? "");
+          getUserInfo();
+        }else{
+          Get.offNamed(AppConst.SIGN_IN);
+        }
       }else{
         userData?.value = response.userData;
         linkAvatar.value = response.userData?.avatarLink ?? "";
