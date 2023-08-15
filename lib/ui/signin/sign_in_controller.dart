@@ -57,8 +57,6 @@ class SignInController extends GetxController {
       if (response?.resultCode == StatusResponse.Success) {
         storage.write(AppConst.KEY_EMAIL, textUser.text);
         storage.write(AppConst.KEY_PASSWORD, textPassword.text);
-        storage.write(AppConst.KEY_PASSWORD, textPassword.text);
-        storage.write(AppConst.KEY_PASSWORD, textPassword.text);
         storage.write(AppConst.TOKEN, response?.data?.token ?? "");
         Get.offAndToNamed(AppConst.HOME);
       }else{

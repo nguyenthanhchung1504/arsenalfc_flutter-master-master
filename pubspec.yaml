@@ -36,7 +36,7 @@ dependencies:
   smooth_page_indicator: any
   pageviewj: any
   collection: any
-  webview_flutter: ^4.0.1
+  webview_flutter: ^4.2.2
   pod_player: ^0.2.0
   #  admob_flutter: ^3.0.0
   #  firebase_messaging: ^14.2.5

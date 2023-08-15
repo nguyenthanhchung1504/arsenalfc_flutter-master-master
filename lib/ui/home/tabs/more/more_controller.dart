@@ -25,6 +25,8 @@ class MoreController extends GetxController{
 
   RxString linkAvatar = "".obs;
 
+  String? token;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -42,30 +44,29 @@ class MoreController extends GetxController{
 
 
   void getUserInfo() async{
-    String? token =  storage.read(AppConst.TOKEN);
+    token ??= storage.read(AppConst.TOKEN);
     String? username =  storage.read(AppConst.KEY_EMAIL);
     String? password =  storage.read(AppConst.KEY_PASSWORD);
 
     UserInfoResponse? response = await provider.getUserInfo(token ?? "");
-    if(response == null){
-      Get.offNamed(AppConst.SIGN_IN);
+    if(response?.resultCode == 401){
+      LoginResponse? responseLogin = await Utils().login(username ?? "", password ?? "");
+      if (responseLogin?.resultCode == StatusResponse.Success) {
+        storage.write(AppConst.TOKEN, responseLogin?.data?.token ?? "");
+        token = responseLogin?.data?.token;
+        getUserInfo();
+      }else{
+        Get.offNamed(AppConst.SIGN_IN);
+      }
     }else{
-      if(response.resultCode == 401){
-        LoginResponse? responseLogin = await Utils().login(username ?? "", password ?? "");
-        if (responseLogin?.resultCode == StatusResponse.Success) {
-          storage.write(AppConst.TOKEN, responseLogin?.data?.token ?? "");
-          getUserInfo();
-        }else{
-          Get.offNamed(AppConst.SIGN_IN);
-        }
+      if(response == null){
+        Get.offNamed(AppConst.SIGN_IN);
       }else{
         userData?.value = response.userData;
         linkAvatar.value = response.userData?.avatarLink ?? "";
-        update();
       }
 
     }
-
 
   }
 

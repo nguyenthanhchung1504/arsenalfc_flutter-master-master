@@ -19,6 +19,7 @@ class DetailNewScreen extends GetView<DetailController> {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
+            elevation: 0,
             title: Text(
               KeyString.KEY_DETAIL_NEW.tr,
               style: const TextStyle(
@@ -53,13 +54,6 @@ class DetailNewScreen extends GetView<DetailController> {
                       padding: EdgeInsets.symmetric(horizontal: 8),
                       child: Column(
                         children: [
-                          index == 0 ? const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 12,vertical: 8),
-                              child: Text("Các bài viết liên quan",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,fontFamily: "montserrat_black"),),
-                          ) :  const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 12,vertical: 8),
-                            child: Text("",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14,fontFamily: "montserrat_black"),),
-                          ),
                           SizedBox(
                               width: MediaQuery.of(context).size.width / 2,
                               height: 108,
