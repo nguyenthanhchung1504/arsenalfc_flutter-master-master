@@ -1,6 +1,6 @@
-import 'package:arsenalfc_flutter/api/Api.dart';
-import 'package:arsenalfc_flutter/model/news/data_news.dart';
-import 'package:arsenalfc_flutter/ui/home/tabs/news/news_provider.dart';
+import 'package:gooner_vietnam/api/Api.dart';
+import 'package:gooner_vietnam/model/news/data_news.dart';
+import 'package:gooner_vietnam/ui/home/tabs/news/news_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 

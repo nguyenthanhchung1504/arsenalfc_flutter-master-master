@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:arsenalfc_flutter/extension/extension.dart';
-import 'package:arsenalfc_flutter/ui/home/tabs/more/more_screen.dart';
-import 'package:arsenalfc_flutter/ui/home/tabs/news/news_screen.dart';
-import 'package:arsenalfc_flutter/ui/home/tabs/players/players_screen.dart';
-import 'package:arsenalfc_flutter/ui/home/tabs/schedules/schedules_screen.dart';
-import 'package:arsenalfc_flutter/ui/home/tabs/videos/videos_screen.dart';
+import 'package:gooner_vietnam/extension/extension.dart';
+import 'package:gooner_vietnam/ui/home/tabs/more/more_screen.dart';
+import 'package:gooner_vietnam/features/news/presentation/news_tab.dart';
+import 'package:gooner_vietnam/ui/home/tabs/players/players_screen.dart';
+import 'package:gooner_vietnam/ui/home/tabs/schedules/schedules_screen.dart';
+import 'package:gooner_vietnam/features/videos/presentation/videos_tab.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -32,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
     super.initState();
     // _pageController = PageController(initialPage: _selectedIndex);
     FirebaseMessaging.instance.subscribeToTopic(KeyString.KEY_NEWS);
+    FirebaseMessaging.instance.subscribeToTopic('live_match');
     if(Platform.isAndroid) {
       var initialzationSettingsAndroid = const AndroidInitializationSettings(
           '@mipmap/ic_launcher');
@@ -53,7 +54,6 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
               android: AndroidNotificationDetails(
                 channel.id,
                 channel.name,
-                channel.description,
                 icon: android.smallIcon,
               ),
             ));
@@ -74,9 +74,9 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
 
 
   static final List<Widget> _widgetOptions = <Widget>[
-    NewsScreen(),
+    const NewsTab(),
     SchedulesScreen(),
-    VideosScreen(),
+    const VideosTab(),
     MoreScreen()
   ];
 

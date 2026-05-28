@@ -1,4 +1,4 @@
-import 'package:arsenalfc_flutter/ui/detailplayer/detail_player_provider.dart';
+import 'package:gooner_vietnam/ui/detailplayer/detail_player_provider.dart';
 import 'package:collection/collection.dart';
 import 'package:get/get.dart';
 

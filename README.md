@@ -1,16 +1,19 @@
-# arsenalfc_flutter
+# Gooner Vietnam
 
-A new Flutter project.
+Ứng dụng Flutter cho cộng đồng fan Arsenal tại Việt Nam.
 
-## Getting Started
+- **Package:** `vn.afcvn.app`
+- **Kế hoạch:** xem [PLAN.md](PLAN.md)
+- **Bối cảnh dự án:** xem [memory-bank/](memory-bank/)
 
-This project is a starting point for a Flutter application.
+## Chạy local
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+cp .env.example .env   # điền APIFOOTBALL_KEY nếu cần debug tab Lịch thi đấu
+flutter pub get
+flutter run
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Firebase
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Project mới: `afcvn-app` — chạy `flutterfire configure` sau khi tạo project trên console.

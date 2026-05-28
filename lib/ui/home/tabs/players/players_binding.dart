@@ -1,5 +1,5 @@
-import 'package:arsenalfc_flutter/ui/home/tabs/players/players_controller.dart';
-import 'package:arsenalfc_flutter/ui/home/tabs/players/players_provider.dart';
+import 'package:gooner_vietnam/ui/home/tabs/players/players_controller.dart';
+import 'package:gooner_vietnam/ui/home/tabs/players/players_provider.dart';
 import 'package:get/get.dart';
 
 class PlayerBindings implements Bindings{

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:arsenalfc_flutter/model/detailnews/DetailNewModel.dart';
+import 'package:gooner_vietnam/model/detailnews/DetailNewModel.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 

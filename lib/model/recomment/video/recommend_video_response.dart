@@ -1,5 +1,5 @@
 
-import 'package:arsenalfc_flutter/model/recomment/video/data_recommend_video.dart';
+import 'package:gooner_vietnam/model/recomment/video/data_recommend_video.dart';
 
 class RecommendVideoResponse {
   RecommendVideoResponse({

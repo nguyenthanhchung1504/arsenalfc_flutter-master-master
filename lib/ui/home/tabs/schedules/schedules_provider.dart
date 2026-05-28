@@ -1,38 +1,64 @@
-
-import 'package:arsenalfc_flutter/model/fixtures/FixturesResponse.dart';
-import 'package:arsenalfc_flutter/model/standing/StandingResponse.dart';
+import 'package:gooner_vietnam/core/config/env.dart';
+import 'package:gooner_vietnam/model/fixtures/FixturesResponse.dart';
+import 'package:gooner_vietnam/model/standing/StandingResponse.dart';
 import 'package:get/get.dart';
 
-class ScheduleProvider extends GetConnect{
-  var header = {
-    "x-rapidapi-key" : "d43e6b99a7mshbd0fa3efd8da2bfp15175cjsn935816567eaf",
-    "x-rapidapi-host" : "api-football-v1.p.rapidapi.com"
+/// Constants Arsenal / Premier League. Mùa lấy theo năm bắt đầu (2025-26 → 2025).
+class _FootballRefs {
+  static const arsenalTeamId = '42';
+  static const premierLeagueId = '39';
+  static const currentSeason = '2025';
+}
+
+/// @deprecated Phase 4: đọc từ Firestore `/cache/*`, không gọi api-football từ mobile.
+class ScheduleProvider extends GetConnect {
+  Map<String, String> get _headers => Env.footballHeaders;
+
+  final Map<String, String> _queryFixtures = {
+    'season': _FootballRefs.currentSeason,
+    'team': _FootballRefs.arsenalTeamId,
   };
 
-  var queryParam = {
-    "season" : "2023",
-    "team" : "42"
+  final Map<String, String> _queryStandings = {
+    'season': _FootballRefs.currentSeason,
+    'league': _FootballRefs.premierLeagueId,
   };
 
-  var queryRanking = {
-    "season" : "2023",
-    "league" : "39"
-  };
+  String get _baseUrl => Env.footballBaseUrl;
 
-  var queryResult = {
-    "season" : "2023",
-    "league" : "39"
-  };
+  Future<Response<FixturesResponse>> getFixtures() {
+    if (!Env.allowDirectFootballApi) {
+      return Future.value(const Response(statusCode: 503));
+    }
+    return get(
+      '$_baseUrl/fixtures',
+      headers: _headers,
+      query: _queryFixtures,
+      decoder: (obj) => FixturesResponse.fromJson(obj),
+    );
+  }
 
+  Future<Response<FixturesResponse>> getResults() {
+    if (!Env.allowDirectFootballApi) {
+      return Future.value(const Response(statusCode: 503));
+    }
+    return get(
+      '$_baseUrl/fixtures',
+      headers: _headers,
+      query: _queryFixtures,
+      decoder: (obj) => FixturesResponse.fromJson(obj),
+    );
+  }
 
-  Future<Response<FixturesResponse>> getFixtures() => get("https://api-football-v1.p.rapidapi.com/v3/fixtures",headers: header,
-      query: queryParam,decoder: (obj) => FixturesResponse.fromJson(obj));
-
-
-  Future<Response<FixturesResponse>> getResults() => get("https://api-football-v1.p.rapidapi.com/v3/fixtures",headers: header,
-      query: queryResult,decoder: (obj) => FixturesResponse.fromJson(obj));
-
-  Future<Response<StandingResponse>> getRankClb() => get("https://api-football-v1.p.rapidapi.com/v3/standings",headers: header,
-      query: queryRanking,decoder: (obj) => StandingResponse.fromJson(obj));
-
+  Future<Response<StandingResponse>> getRankClb() {
+    if (!Env.allowDirectFootballApi) {
+      return Future.value(const Response(statusCode: 503));
+    }
+    return get(
+      '$_baseUrl/standings',
+      headers: _headers,
+      query: _queryStandings,
+      decoder: (obj) => StandingResponse.fromJson(obj),
+    );
+  }
 }

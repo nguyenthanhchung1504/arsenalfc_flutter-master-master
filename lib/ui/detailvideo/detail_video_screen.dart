@@ -1,7 +1,7 @@
 
-import 'package:arsenalfc_flutter/extension/extension.dart';
-import 'package:arsenalfc_flutter/utils/colors.dart';
-import 'package:arsenalfc_flutter/utils/messages.dart';
+import 'package:gooner_vietnam/extension/extension.dart';
+import 'package:gooner_vietnam/utils/colors.dart';
+import 'package:gooner_vietnam/utils/messages.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

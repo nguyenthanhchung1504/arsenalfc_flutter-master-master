@@ -3,7 +3,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:arsenalfc_flutter/model/upload/upload_avatar_response.dart';
+import 'package:gooner_vietnam/model/upload/upload_avatar_response.dart';
 import 'package:dio/dio.dart' as _dio;
 import 'package:get/get_connect.dart';
 import 'package:get_storage/get_storage.dart';

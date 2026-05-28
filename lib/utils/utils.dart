@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:arsenalfc_flutter/model/login/LoginResponse.dart';
+import 'package:gooner_vietnam/model/login/LoginResponse.dart';
 
 import '../api/Api.dart';
 

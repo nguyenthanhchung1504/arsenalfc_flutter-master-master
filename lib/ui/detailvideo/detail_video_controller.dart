@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:arsenalfc_flutter/model/detailvideo/detail_video_response.dart';
-import 'package:arsenalfc_flutter/model/detailvideo/video_info.dart';
-import 'package:arsenalfc_flutter/model/videos/data_videos.dart';
+import 'package:gooner_vietnam/model/detailvideo/detail_video_response.dart';
+import 'package:gooner_vietnam/model/detailvideo/video_info.dart';
+import 'package:gooner_vietnam/model/videos/data_videos.dart';
 import 'package:collection/collection.dart';
 import 'package:get/get.dart';
 import 'package:pod_player/pod_player.dart';

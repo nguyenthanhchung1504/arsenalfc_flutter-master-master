@@ -1,64 +1,41 @@
-
-import 'package:arsenalfc_flutter/model/videos/video_response.dart';
-import 'package:arsenalfc_flutter/ui/search/searchvideo/search_video_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../api/Api.dart';
-import '../../../model/videos/data_videos.dart';
 
-class SearchVideoController extends GetxController{
-  final SearchVideoProviders providers;
+import '../../../data/repositories/firestore_video_repository.dart';
+import '../../../domain/entities/video.dart';
 
-  SearchVideoController({required this.providers});
+class SearchVideoController extends GetxController {
+  SearchVideoController();
 
-  RxList<DataVideo> list = <DataVideo>[].obs;
-  RxInt pageIndex = 1.obs;
+  final _repo = FirestoreVideoRepository(FirebaseFirestore.instance);
 
-  ScrollController scrollController = ScrollController();
+  RxList<Video> list = <Video>[].obs;
+  RxBool isLoading = false.obs;
 
-  String search = "";
-
-  RxBool isLoadMore = true.obs;
+  final scrollController = ScrollController();
+  String search = '';
 
   @override
   void onInit() {
     super.onInit();
-    scrollController.addListener(() {
-      if (scrollController.position.maxScrollExtent ==
-          scrollController.position.pixels) {
-        if(isLoadMore.value) {
-          getVideoPaging(true);
-        }
-      }
-    });
     FocusScope.of(Get.context!).requestFocus(FocusNode());
   }
 
-  void getVideoPaging(bool isScroll) async {
-    if(search.isEmpty){
+  Future<void> searchVideos() async {
+    final query = search.trim();
+    if (query.isEmpty) {
       list.clear();
-      pageIndex = 1.obs;
-      update();
       return;
     }
 
-    if (!isScroll) {
-      list.clear();
-      pageIndex = 1.obs;
-    }
-    VideoResponse? videoResponse = await providers.getVideos(pageIndex.value,search);
+    isLoading.value = true;
+    final result = await _repo.search(query);
+    isLoading.value = false;
 
-    if (videoResponse?.resultCode == 1) {
-      videoResponse?.data?.forEach((element) {
-        list.add(element);
-
-      });
-      update();
-    } else {}
-    if((videoResponse?.data?.length ?? 0) >= Api.PAGE_SIZE){
-      pageIndex++;
-    }else{
-      isLoadMore.value = false;
-    }
+    result.fold(
+      (videos) => list.assignAll(videos),
+      (_) => list.clear(),
+    );
   }
 }

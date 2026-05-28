@@ -1,6 +1,6 @@
 
-import 'package:arsenalfc_flutter/ui/detailplayer/detail_player_controller.dart';
-import 'package:arsenalfc_flutter/utils/colors.dart';
+import 'package:gooner_vietnam/ui/detailplayer/detail_player_controller.dart';
+import 'package:gooner_vietnam/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';

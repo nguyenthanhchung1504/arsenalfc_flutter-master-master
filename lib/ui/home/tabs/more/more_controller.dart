@@ -1,103 +1,97 @@
-
-
 import 'dart:io';
 
-import 'package:arsenalfc_flutter/routes/routes_const.dart';
-import 'package:arsenalfc_flutter/utils/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:gooner_vietnam/core/constants/app_info.dart';
+import 'package:gooner_vietnam/routes/routes_const.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 
-import '../../../../model/login/LoginResponse.dart';
+import '../../../../data/repositories/firebase_auth_repository.dart';
 import '../../../../model/user_info/user_data.dart';
-import '../../../../model/user_info/user_info_response.dart';
-import '../../../../utils/status.dart';
 import 'more_provider.dart';
 
-class MoreController extends GetxController{
-  MoreProvider provider;
-
+class MoreController extends GetxController {
   MoreController({required this.provider});
+
+  final MoreProvider provider;
   final storage = GetStorage();
+  final _authRepo = FirebaseAuthRepository(FirebaseAuth.instance);
 
   Rx<UserData?>? userData = UserData().obs;
-
-  RxString linkAvatar = "".obs;
-
+  RxString linkAvatar = ''.obs;
   String? token;
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     getUserInfo();
   }
 
-
-
   RateMyApp rateMyApp = RateMyApp(
     preferencesPrefix: 'rateMyApp_',
-    googlePlayIdentifier: 'com.ntchung.arsenalafc',
-    appStoreIdentifier: 'com.ntchung.arsenalafc',
+    googlePlayIdentifier: AppInfo.androidPackage,
+    appStoreIdentifier: AppInfo.iosAppStoreId,
   );
 
-
-  void getUserInfo() async{
-    token ??= storage.read(AppConst.TOKEN);
-    String? username =  storage.read(AppConst.KEY_EMAIL);
-    String? password =  storage.read(AppConst.KEY_PASSWORD);
-
-    UserInfoResponse? response = await provider.getUserInfo(token ?? "");
-    if(response?.resultCode == 401){
-      LoginResponse? responseLogin = await Utils().login(username ?? "", password ?? "");
-      if (responseLogin?.resultCode == StatusResponse.Success) {
-        storage.write(AppConst.TOKEN, responseLogin?.data?.token ?? "");
-        token = responseLogin?.data?.token;
-        getUserInfo();
-      }else{
-        Get.offNamed(AppConst.SIGN_IN);
-      }
-    }else{
-      if(response == null){
-        Get.offNamed(AppConst.SIGN_IN);
-      }else{
-        userData?.value = response.userData;
-        linkAvatar.value = response.userData?.avatarLink ?? "";
-      }
-
+  void getUserInfo() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      Get.offNamed(AppConst.SIGN_IN);
+      return;
     }
 
+    token = user.uid;
+    storage.write(AppConst.TOKEN, user.uid);
+    if (user.email != null) {
+      storage.write(AppConst.KEY_EMAIL, user.email);
+    }
+
+    userData?.value = UserData(
+      fullName: user.displayName ?? storage.read(AppConst.KEY_FULLNAME),
+      email: user.email,
+      phoneNumber: user.phoneNumber ?? storage.read(AppConst.KEY_PHONE),
+      avatarLink: user.photoURL,
+    );
+    linkAvatar.value = user.photoURL ?? '';
   }
 
-  void showRate(){
+  Future<void> signOut() async {
+    await _authRepo.signOut();
+    await storage.erase();
+    Get.offNamed(AppConst.SIGN_IN);
+  }
+
+  void showRate() {
     rateMyApp.showStarRateDialog(
       Get.context!,
-      title: 'Đánh giá app', // The dialog title.
-      message: 'Bạn thích ứng dụng này? Sau đó, hãy dành một chút thời gian của bạn để xếp hạng', // The dialog message.
-      // contentBuilder: (context, defaultContent) => content, // This one allows you to change the default dialog content.
-      actionsBuilder: (context, stars) { // Triggered when the user updates the star rating.
-        return [ // Return a list of actions (that will be shown at the bottom of the dialog).
+      title: 'Đánh giá app',
+      message:
+          'Bạn thích ứng dụng này? Sau đó, hãy dành một chút thời gian của bạn để xếp hạng',
+      actionsBuilder: (context, stars) {
+        return [
           TextButton(
             child: const Text('Đồng ý'),
             onPressed: () async {
-              print('Thanks for the ' + (stars == null ? '0' : stars.round().toString()) + ' star(s) !');
-              // You can handle the result as you want (for instance if the user puts 1 star then open your contact page, if he puts more then open the store page, etc...).
-              // This allows to mimic the behavior of the default "Rate" button. See "Advanced > Broadcasting events" for more information :
               await rateMyApp.callEvent(RateMyAppEventType.rateButtonPressed);
-              Navigator.pop<RateMyAppDialogButton>(context, RateMyAppDialogButton.rate);
+              Navigator.pop<RateMyAppDialogButton>(
+                context,
+                RateMyAppDialogButton.rate,
+              );
             },
           ),
         ];
       },
-      ignoreNativeDialog: Platform.isAndroid, // Set to false if you want to show the Apple's native app rating dialog on iOS or Google's native app rating dialog (depends on the current Platform).
-      dialogStyle: const DialogStyle( // Custom dialog styles.
+      ignoreNativeDialog: Platform.isAndroid,
+      dialogStyle: const DialogStyle(
         titleAlign: TextAlign.center,
         messageAlign: TextAlign.center,
         messagePadding: EdgeInsets.only(bottom: 20),
       ),
-      starRatingOptions: const StarRatingOptions(), // Custom star bar rating options.
-      onDismissed: () => rateMyApp.callEvent(RateMyAppEventType.laterButtonPressed), // Called when the user dismissed the dialog (either by taping outside or by pressing the "back" button).
+      starRatingOptions: const StarRatingOptions(),
+      onDismissed: () =>
+          rateMyApp.callEvent(RateMyAppEventType.laterButtonPressed),
     );
   }
 }

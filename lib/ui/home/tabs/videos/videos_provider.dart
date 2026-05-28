@@ -1,7 +1,7 @@
 
 import 'dart:convert';
 
-import 'package:arsenalfc_flutter/api/Api.dart';
+import 'package:gooner_vietnam/api/Api.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get_connect/connect.dart';
 

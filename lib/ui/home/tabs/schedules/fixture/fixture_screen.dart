@@ -1,4 +1,4 @@
-import 'package:arsenalfc_flutter/utils/colors.dart';
+import 'package:gooner_vietnam/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,8 +1,8 @@
-import 'package:arsenalfc_flutter/ui/home/tabs/schedules/fixture/fixture_screen.dart';
-import 'package:arsenalfc_flutter/ui/home/tabs/schedules/schedules_controller.dart';
-import 'package:arsenalfc_flutter/ui/home/tabs/schedules/standing/standing_screen.dart';
-import 'package:arsenalfc_flutter/utils/colors.dart';
-import 'package:arsenalfc_flutter/utils/messages.dart';
+import 'package:gooner_vietnam/ui/home/tabs/schedules/fixture/fixture_screen.dart';
+import 'package:gooner_vietnam/ui/home/tabs/schedules/schedules_controller.dart';
+import 'package:gooner_vietnam/ui/home/tabs/schedules/standing/standing_screen.dart';
+import 'package:gooner_vietnam/utils/colors.dart';
+import 'package:gooner_vietnam/utils/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,32 +28,65 @@ class SchedulesScreen extends GetView<SchedulesController> {
                   color: Colors.black),
             ),
           ),
-          body: DefaultTabController(
+          body: Obx(() {
+            if (controller.isLoading.value) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (controller.errorMessage.value.isNotEmpty &&
+                controller.listFixture.isEmpty &&
+                controller.listResult.isEmpty &&
+                controller.listStandings.isEmpty) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.cloud_off, size: 48),
+                      const SizedBox(height: 12),
+                      Text(
+                        controller.errorMessage.value,
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 16),
+                      FilledButton(
+                        onPressed: controller.loadAll,
+                        child: const Text('Thử lại'),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }
+            return DefaultTabController(
               length: 3,
               child: Container(
                 color: const Color(AppColors.GRAY_LIGHT),
                 child: Column(
                   children: [
                     Container(
-                      child: TabBarViewLayout(),
                       color: Colors.white,
+                      child: TabBarViewLayout(),
                     ),
                     Container(
                       color: const Color(AppColors.GRAY_LIGHT),
                       height: 1,
                     ),
                     const Flexible(
-                        fit: FlexFit.loose,
-                        child: TabBarView(
-                          children: [
-                            FixturesTab(),
-                            ResultScreen(),
-                            StandingScreen(),
-                          ],
-                        ))
+                      fit: FlexFit.loose,
+                      child: TabBarView(
+                        children: [
+                          FixturesTab(),
+                          ResultScreen(),
+                          StandingScreen(),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-              ))),
+              ),
+            );
+          })),
     );
   }
 }

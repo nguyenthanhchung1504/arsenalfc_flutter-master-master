@@ -1,6 +1,6 @@
-import 'package:arsenalfc_flutter/routes/routes_const.dart';
-import 'package:arsenalfc_flutter/ui/detailplayer/detail_player_screen.dart';
-import 'package:arsenalfc_flutter/ui/home/tabs/players/players_controller.dart';
+import 'package:gooner_vietnam/routes/routes_const.dart';
+import 'package:gooner_vietnam/ui/detailplayer/detail_player_screen.dart';
+import 'package:gooner_vietnam/ui/home/tabs/players/players_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pageviewj/pageviewj.dart';

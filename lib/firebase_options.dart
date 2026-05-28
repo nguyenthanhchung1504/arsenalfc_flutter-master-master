@@ -50,23 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBZ_AeJweJxjPmMLhW5add4MdrPnWO050E',
-    appId: '1:589941651652:android:73cced8ca75023c4323191',
-    messagingSenderId: '589941651652',
-    projectId: 'afc-arsenal',
-    databaseURL: 'https://afc-arsenal-default-rtdb.firebaseio.com',
-    storageBucket: 'afc-arsenal.appspot.com',
+    apiKey: 'AIzaSyBZIi8jplp9I0PZ6kAQ95UMjmFMMWbmbv0',
+    appId: '1:145273926028:android:33ef31a2c995118c4ae6a9',
+    messagingSenderId: '145273926028',
+    projectId: 'afcvn-app',
+    storageBucket: 'afcvn-app.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB6RJDfEnkD__Xq4w6clS39NyMtxuwJoto',
-    appId: '1:589941651652:ios:8f8cd9a8d839247c323191',
-    messagingSenderId: '589941651652',
-    projectId: 'afc-arsenal',
-    databaseURL: 'https://afc-arsenal-default-rtdb.firebaseio.com',
-    storageBucket: 'afc-arsenal.appspot.com',
-    androidClientId: '589941651652-9r1ul95q4bcuh10pij09p5eovfic34ea.apps.googleusercontent.com',
-    iosClientId: '589941651652-4f4qp75176mj0l3i936jsvm6ba5uhjsn.apps.googleusercontent.com',
-    iosBundleId: 'com.ntchung.arsenalafc',
+    apiKey: 'AIzaSyB5zAU4eooUiS5JWRL5LbpUYJ-ZszSA1bY',
+    appId: '1:145273926028:ios:859dae9059e72dee4ae6a9',
+    messagingSenderId: '145273926028',
+    projectId: 'afcvn-app',
+    storageBucket: 'afcvn-app.firebasestorage.app',
+    iosBundleId: 'vn.afcvn.app',
   );
 }

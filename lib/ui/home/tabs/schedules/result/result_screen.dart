@@ -1,4 +1,4 @@
-import 'package:arsenalfc_flutter/ui/home/tabs/schedules/schedules_controller.dart';
+import 'package:gooner_vietnam/ui/home/tabs/schedules/schedules_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

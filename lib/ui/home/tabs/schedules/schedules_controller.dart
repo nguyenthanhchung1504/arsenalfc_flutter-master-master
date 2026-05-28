@@ -1,30 +1,25 @@
-
-import 'package:arsenalfc_flutter/model/fixtures/FixturesData.dart';
-import 'package:arsenalfc_flutter/model/standing/Standings.dart';
-import 'package:arsenalfc_flutter/ui/home/tabs/schedules/schedules_provider.dart';
+import 'package:gooner_vietnam/data/mappers/fixture_legacy_mapper.dart';
+import 'package:gooner_vietnam/domain/repositories/schedule_repository.dart';
+import 'package:gooner_vietnam/model/fixtures/FixturesData.dart';
+import 'package:gooner_vietnam/model/standing/Standings.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
+class SchedulesController extends GetxController
+    with GetSingleTickerProviderStateMixin {
+  SchedulesController({required this.scheduleRepository});
 
-class SchedulesController extends GetxController with GetSingleTickerProviderStateMixin{
-  ScheduleProvider scheduleProvider;
-
-  SchedulesController({required this.scheduleProvider});
+  final ScheduleRepository scheduleRepository;
 
   RxList<FixturesData> listFixture = RxList();
   RxList<FixturesData> listResult = RxList();
   RxList<Standings> listStandings = RxList();
 
+  RxBool isLoading = true.obs;
+  RxString errorMessage = ''.obs;
+
   late TabController tabController;
-
-  @override
-  void onReady() {
-    super.onReady();
-    getFixtures();
-    getResult();
-    getRanking();
-  }
-
 
   @override
   void onInit() {
@@ -32,74 +27,67 @@ class SchedulesController extends GetxController with GetSingleTickerProviderSta
     tabController = TabController(length: 3, vsync: this);
   }
 
-
-  void getFixtures() async {
-    await scheduleProvider.getFixtures().then((result){
-      if(result.body?.response != null){
-        result.body?.response?.sort((a,b){
-          return (a.fixture?.date ?? "").compareTo(b.fixture?.date ?? "");
-        });
-        result.body?.response?.forEach((element) {
-          if(element.fixture?.status?.long == "Not Started"){
-            listFixture.add(element);
-          }
-
-        });
-        update();
-      }else{
-
-      }
-    });
+  @override
+  void onReady() {
+    super.onReady();
+    loadAll();
   }
 
-  bool isArsenal(String? name){
-    return name == "Arsenal";
+  Future<void> loadAll() async {
+    isLoading.value = true;
+    errorMessage.value = '';
+    listFixture.clear();
+    listResult.clear();
+    listStandings.clear();
+
+    final fixturesUpcoming = await scheduleRepository.getUpcomingFixtures(
+      limit: 50,
+    );
+    final fixturesResults = await scheduleRepository.getResults(limit: 50);
+    final standings = await scheduleRepository.getStandings();
+
+    String? err;
+    fixturesUpcoming.fold(
+      (items) {
+        for (final f in items) {
+          listFixture.add(FixtureLegacyMapper.toFixturesData(f));
+        }
+      },
+      (f) => err ??= f.message,
+    );
+
+    fixturesResults.fold(
+      (items) {
+        for (final f in items) {
+          listResult.add(FixtureLegacyMapper.toFixturesData(f));
+        }
+      },
+      (f) => err ??= f.message,
+    );
+
+    standings.fold(
+      (items) {
+        for (final s in items) {
+          listStandings.add(FixtureLegacyMapper.toLegacyStanding(s));
+        }
+      },
+      (f) => err ??= f.message,
+    );
+
+    isLoading.value = false;
+    if (err != null &&
+        listFixture.isEmpty &&
+        listResult.isEmpty &&
+        listStandings.isEmpty) {
+      errorMessage.value = err!;
+      Fluttertoast.showToast(
+        msg: err!,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.TOP,
+      );
+    }
+    update();
   }
 
-
-  void getResult() async {
-    await scheduleProvider.getFixtures().then((result){
-      if(result.body?.response != null){
-        result.body?.response?.sort((a,b){
-          return (b.fixture?.date ?? "").compareTo(a.fixture?.date ?? "");
-        });
-        result.body?.response?.forEach((element) {
-
-          if(element.fixture?.status?.long == "Match Finished"){
-            listResult.add(element);
-          }
-        });
-        update();
-      }else{
-
-      }
-    });
-  }
-
-  void getRanking() async {
-    await scheduleProvider.getRankClb().then((result){
-      if(result.body?.response != null){
-        result.body?.response?.forEach((element) {
-            if(element.league?.standings != null){
-              element.league?.standings?.forEach((standing) {
-               List<dynamic> list = standing;
-                list.forEach((element) {
-                  Standings standings = Standings.fromJson(element);
-                  listStandings.add(standings);
-                });
-                print('${listStandings.length}');
-                update();
-              });
-            }
-
-        });
-        // update();
-      }else{
-
-      }
-    });
-  }
-
-
-
+  bool isArsenal(String? name) => name == 'Arsenal';
 }

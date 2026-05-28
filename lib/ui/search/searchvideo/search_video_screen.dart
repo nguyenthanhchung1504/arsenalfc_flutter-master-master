@@ -1,5 +1,5 @@
 
-import 'package:arsenalfc_flutter/ui/search/searchvideo/search_video_controller.dart';
+import 'package:gooner_vietnam/ui/search/searchvideo/search_video_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -45,13 +45,11 @@ class SearchVideoScreen extends GetView<SearchVideoController> {
                 margin: const EdgeInsets.only(left: 16, right: 16, top: 12),
                 child: TextField(
                   onChanged: (value) {
-                    print("onChanged  $value");
                     controller.search = value;
-                    controller.list.clear();
-                    if(value.isEmpty || value == ""){
-                      controller.update();
-                    }else{
-                      controller.getVideoPaging(false);
+                    if (value.trim().isEmpty) {
+                      controller.list.clear();
+                    } else {
+                      controller.searchVideos();
                     }
                   },
                   decoration: const InputDecoration(
@@ -128,8 +126,10 @@ class VideoListSearch extends GetView<SearchVideoController> {
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              Get.toNamed(AppConst.DETAIL_NEWS,
-                  arguments: [controller.list.elementAt(index)]);
+              Get.toNamed(
+                AppConst.DETAIL_VIDEOS,
+                arguments: controller.list.elementAt(index).id,
+              );
             },
             child: Container(
                 margin: const EdgeInsets.only(bottom: 12, left: 16, right: 16),
@@ -148,7 +148,7 @@ class VideoListSearch extends GetView<SearchVideoController> {
                             child: CachedNetworkImage(
                               imageUrl: controller.list
                                   .elementAt(index)
-                                  .thumbnail ?? "",
+                                  .thumbnailUrl,
                               imageBuilder: (context, imageProvider) =>
                                   Container(
                                     decoration: BoxDecoration(
@@ -173,9 +173,7 @@ class VideoListSearch extends GetView<SearchVideoController> {
                             Container(
                               padding: const EdgeInsets.all(8),
                               child: Text(
-                                controller.list
-                                    .elementAt(index)
-                                    .title ?? "",
+                                controller.list.elementAt(index).title,
                                 overflow:
                                 TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -192,14 +190,9 @@ class VideoListSearch extends GetView<SearchVideoController> {
                               padding: EdgeInsets.symmetric(horizontal: 8),
                               child:
                               Text(
-                                "${DateFormat("dd/MM/yyyy").format(
-                                    DateTime.parse(controller.list
-                                        .elementAt(index)
-                                        .createdDate!
-                                        .split("T")
-                                        .first))} - ${controller.list
-                                    .elementAt(index)
-                                    .views} lượt xem",
+                                DateFormat('dd/MM/yyyy').format(
+                                  controller.list.elementAt(index).publishedAt,
+                                ),
                                 style: const TextStyle(fontSize: 10,
                                     fontFamily: "montserrat_black",
                                     fontWeight: FontWeight.w400),

@@ -1,6 +1,6 @@
-import 'package:arsenalfc_flutter/model/videos/data_videos.dart';
-import 'package:arsenalfc_flutter/model/videos/video_response.dart';
-import 'package:arsenalfc_flutter/ui/home/tabs/videos/videos_provider.dart';
+import 'package:gooner_vietnam/model/videos/data_videos.dart';
+import 'package:gooner_vietnam/model/videos/video_response.dart';
+import 'package:gooner_vietnam/ui/home/tabs/videos/videos_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

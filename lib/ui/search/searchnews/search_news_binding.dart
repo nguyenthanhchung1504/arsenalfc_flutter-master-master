@@ -1,5 +1,5 @@
-import 'package:arsenalfc_flutter/ui/search/searchnews/search_news_controller.dart';
-import 'package:arsenalfc_flutter/ui/search/searchnews/search_news_provider.dart';
+import 'package:gooner_vietnam/ui/search/searchnews/search_news_controller.dart';
+import 'package:gooner_vietnam/ui/search/searchnews/search_news_provider.dart';
 import 'package:get/get.dart';
 
 class SearchNewsBinding implements Bindings{

@@ -1,5 +1,5 @@
 
-import 'package:arsenalfc_flutter/ui/search/searchnews/search_news_controller.dart';
+import 'package:gooner_vietnam/ui/search/searchnews/search_news_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';

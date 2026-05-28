@@ -1,5 +1,5 @@
 
-import 'package:arsenalfc_flutter/ui/home/tabs/schedules/schedules_controller.dart';
+import 'package:gooner_vietnam/ui/home/tabs/schedules/schedules_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 

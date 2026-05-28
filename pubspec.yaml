@@ -1,140 +1,83 @@
-name: arsenalfc_flutter
-description: A new Flutter project.
+name: gooner_vietnam
+description: Gooner Vietnam — ứng dụng fan Arsenal tại Việt Nam.
+publish_to: 'none'
 
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 3.0.0+1
+version: 5.0.0+19
 
 environment:
-  sdk: ">=2.16.1 <3.0.0"
+  sdk: '>=3.5.0 <4.0.0'
 
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
     sdk: flutter
-  intl: any
-  http: ^0.13.6
-  get: any
-  cached_network_image: any
-  smooth_page_indicator: any
+  flutter_localizations:
+    sdk: flutter
+
+  # State (GetX còn chạy song song đến hết Phase 3; Riverpod là chính từ Phase 2)
+  get: ^4.7.2
+  flutter_riverpod: ^2.6.1
+
+  # Codegen models
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+
+  # Config
+  flutter_dotenv: ^5.2.1
+
+  # Network & storage
+  dio: ^5.9.0
+  http: ^1.5.0
+  get_storage: ^2.1.1
+  connectivity_plus: ^6.1.4
+
+  # Firebase (aligned versions — chạy `flutterfire configure` sau khi tạo project)
+  firebase_core: ^3.8.1
+  firebase_auth: ^5.5.2
+  cloud_firestore: ^5.6.2
+  firebase_storage: ^12.4.4
+  firebase_messaging: ^15.2.4
+  firebase_crashlytics: ^4.3.4
+
+  # UI & media
+  cupertino_icons: ^1.0.8
+  cached_network_image: ^3.4.1
+  smooth_page_indicator: ^1.2.1
   pageviewj: any
   collection: any
-  webview_flutter: ^4.2.2
-  pod_player: ^0.2.0
-  #  admob_flutter: ^3.0.0
-  #  firebase_messaging: ^14.2.5
-  #  firebase_core: ^2.7.0
-  #  firebase_analytics: ^10.1.4
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  firebase_messaging: ^14.3.0
-  firebase_core: ^2.8.0
-  flutter_local_notifications: ^8.2.0
-  notification_permissions: ^0.6.1
-  google_mobile_ads: ^3.0.0
-  internet_connection_checker: ^1.0.0+1
-  firebase_crashlytics: ^3.3.3
-  fluttertoast: ^8.2.2
-  dio: ^5.2.1+1
+  webview_flutter: ^4.13.0
+  pod_player: ^0.2.2
   flutter_easyloading: ^3.0.5
-  get_storage: ^2.1.1
-  rate_my_app: ^2.0.0
-  share_plus: ^7.0.2
-  image_picker: ^1.0.1
-  permission_handler: ^10.4.3
-  uuid: ^3.0.6
+  fluttertoast: ^8.2.14
+  flutter_local_notifications: ^18.0.1
 
-
-
-#  firebase_analytics: ^10.2.0
+  # Platform
+  google_mobile_ads: ^6.0.0
+  rate_my_app: ^2.3.2
+  share_plus: ^12.0.1
+  image_picker: ^1.2.0
+  permission_handler: ^12.0.1
+  uuid: ^4.5.1
+  intl: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_lints: ^5.0.0
+  build_runner: ^2.4.15
+  freezed: ^2.5.7
+  json_serializable: ^6.9.0
 
-
-
-
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^1.0.0
-
-
-
-
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/json/
 
   fonts:
     - family: montserrat_black
       fonts:
         - asset: assets/fonts/montserrat_black.ttf
           weight: 700
-
         - asset: assets/fonts/montserrat_light.ttf
           weight: 400
-
-
-  # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/images/
-    - assets/json/
-  #   - images/a_dot_ham.jpeg
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages

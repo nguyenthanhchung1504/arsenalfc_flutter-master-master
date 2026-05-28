@@ -1,7 +1,7 @@
 
 import 'dart:convert';
 
-import 'package:arsenalfc_flutter/model/recomment/video/recommend_video_response.dart';
+import 'package:gooner_vietnam/model/recomment/video/recommend_video_response.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 

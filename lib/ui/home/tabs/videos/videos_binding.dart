@@ -1,7 +1,7 @@
 
 
-import 'package:arsenalfc_flutter/ui/home/tabs/videos/videos_controller.dart';
-import 'package:arsenalfc_flutter/ui/home/tabs/videos/videos_provider.dart';
+import 'package:gooner_vietnam/ui/home/tabs/videos/videos_controller.dart';
+import 'package:gooner_vietnam/ui/home/tabs/videos/videos_provider.dart';
 import 'package:get/get.dart';
 
 class VideosBinding implements Bindings{

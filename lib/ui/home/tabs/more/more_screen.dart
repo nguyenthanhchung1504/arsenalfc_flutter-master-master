@@ -1,8 +1,9 @@
 import 'dart:io';
 
-import 'package:arsenalfc_flutter/routes/routes_const.dart';
-import 'package:arsenalfc_flutter/ui/home/tabs/more/more_controller.dart';
-import 'package:arsenalfc_flutter/utils/colors.dart';
+import 'package:gooner_vietnam/core/constants/app_info.dart';
+import 'package:gooner_vietnam/routes/routes_const.dart';
+import 'package:gooner_vietnam/ui/home/tabs/more/more_controller.dart';
+import 'package:gooner_vietnam/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
@@ -122,10 +123,10 @@ class MoreScreen extends GetView<MoreController>{
 
               GestureDetector(
                 onTap: (){
-                  if(Platform.isAndroid){
-                    Share.share("https://play.google.com/store/apps/details?id=com.ntchung.arsenalafc&hl=vi-VN",subject: "Offical AFCVN");
-                  }else{
-                    Share.share("https://apps.apple.com/vn/app/offical-afcvn/id6445896310?l=vi",subject: "Offical AFCVN");
+                  if (Platform.isAndroid) {
+                    Share.share(AppInfo.playStoreUrl, subject: AppInfo.displayName);
+                  } else {
+                    Share.share(AppInfo.appStoreUrl, subject: AppInfo.displayName);
                   }
                 },
                 child: Container(
@@ -172,10 +173,7 @@ class MoreScreen extends GetView<MoreController>{
 
 
               GestureDetector(
-                onTap: (){
-                  controller.storage.erase();
-                  Get.offNamed(AppConst.SIGN_IN);
-                },
+                onTap: controller.signOut,
                 child: Container(
                   alignment: Alignment.center,
                   width: Get.width,
